@@ -18,14 +18,13 @@ app.use(urlencoded({ extended: true }));
 // api routes
 app.use("/api", protectedRouter);
 app.use("/login", loginRouter);
-
 app.use('/client', express.static(join(__dirname, '../client')));
 
 // error handlers
 // development error handler
 // will print stacktrace
 if (app.get("env") === "development") {
-
+    console.log("Environment:development");
     app.use(express.static(join(__dirname, '../node_modules')));
     app.use(express.static(join(__dirname, '../tools')));
 
