@@ -9,6 +9,7 @@ import "rxjs/add/operator/map";
 <div class="ui container">
     <nav class="ui menu inverted teal huge">
         <a routerLink="home" class="item">Home</a>
+        <a routerLink="plugins" class="item">Plugins</a>
         <a routerLink="contact" class="item">Contact Me</a>
         
         <nav class="menu right">

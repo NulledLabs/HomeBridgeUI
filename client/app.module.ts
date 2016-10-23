@@ -9,6 +9,7 @@ import { routing } from "./routes";
 import { HelloComponent } from "./components/shared/hello.component";
 import { ContactModule } from "./modules/contact/contact.module";
 import { HomeModule } from "./modules/home/home.module";
+import { PluginsModule } from "./modules/plugins/plugins.module";
 
 @NgModule({
     imports: [
@@ -17,12 +18,13 @@ import { HomeModule } from "./modules/home/home.module";
         NgSemanticModule,
         ContactModule,
         HomeModule,
+        PluginsModule,
         routing
     ],
     providers: [
         provideAuth({
             globalHeaders: [{"Content-type": "application/json"}],
-            newJwtError: true,
+            noJwtError: true,
             noTokenScheme: true
         })
     ],

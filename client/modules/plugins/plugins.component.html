@@ -1,0 +1,35 @@
+<div class="ui container">
+	<sm-segment class="raised">
+		<sm-button class="green" (click)="protected()">Call Protected API</sm-button>
+
+		<sm-message class="negative" *ngIf="error">
+			<message-content>{{error}}</message-content>
+		</sm-message>
+
+<pre>
+<!--{{ plugins | json}}-->
+</pre>
+<div class="ui relaxed divided list">
+  <div class="item" *ngFor="let plugin of plugins">
+	<div class="right floated content">
+      <div class="ui button" (click)="showPopup(myPopup, $event, plugin)">Configure</div>
+    </div>
+    <i class="large github middle aligned icon"></i>
+    <div class="content">
+      <a class="header" href="{{plugin.HomePage}}" target="_blank">{{plugin.Name}}</a>
+      <div class="description">{{plugin.Description}}</div>
+    </div>
+  </div>
+</div>
+	</sm-segment>
+</div>
+
+<profile></profile>
+
+<sm-popup class="huge" #myPopup>
+	<sm-card class="card basic">
+		<card-title> Simple login </card-title>
+		<schema-form class="col-md-6" [schema]="selectedSchema" (onChange)="val=$event.value"></schema-form>
+		<sm-button class="bottom attached fluid primary" (click)="login()">Save Config</sm-button>
+	</sm-card>
+</sm-popup>
