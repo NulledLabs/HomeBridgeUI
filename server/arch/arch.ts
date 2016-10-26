@@ -1,0 +1,3 @@
+interface Arch {
+    Reboot(): boolean;
+}

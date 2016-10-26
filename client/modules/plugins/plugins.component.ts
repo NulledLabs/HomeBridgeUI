@@ -1,12 +1,12 @@
 import { Component } from "@angular/core";
 import { ApiService } from "../../service/api.service";
-import { FormComponent, WidgetRegistry, DefaultWidgetRegistry } from "angular2-schema-form";
 import { SemanticPopupComponent } from "ng-semantic";
+//import { FormComponent, WidgetRegistry, DefaultWidgetRegistry } from "angular2-schema-form";
 
 @Component({
     selector: "plugins",
-    templateUrl: `client/modules/plugins/plugins.component.html`,
-    providers: [{provide: WidgetRegistry, useClass: DefaultWidgetRegistry}]
+    templateUrl: `client/modules/plugins/plugins.component.html`
+    //, providers: [{provide: WidgetRegistry, useClass: DefaultWidgetRegistry}]
 })
 export class PluginsComponent {
     error: string;

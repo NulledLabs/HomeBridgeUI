@@ -13,6 +13,9 @@ echo "${GCCVERSION}"
 if [[ $UNAME == *"Darwin"* ]]; then
     echo "Installing for Mac";
     OS="MAC";
+    
+    #TODO: Need to be able to reboot from within Node
+    #?? sudo setcap CAP_SYS_BOOT=+ep /usr/local/bin/node
 
 elif [[ $UNAME == *"Linux"* ]]; then
     echo "Installing for Linux";
@@ -21,6 +24,13 @@ elif [[ $UNAME == *"Linux"* ]]; then
 
     LINUXVERSION="$(lsb_release -a)"
     echo "${LINUXVERSION}"
+
+    #Need to be able to reboot from within Node
+    echo "Modifying sudoers file /etc/sudoers.d/pi to allow commands to run from api."
+    #sudo setcap CAP_SYS_BOOT=+ep /usr/local/bin/node
+    sudo cat >> filename /etc/sudoers.d/pi "pi ALL=/sbin/shutdown" + "\n" + "pi ALL=NOPASSWD: /sbin/shutdown"
+    sudo cat >> filename /etc/sudoers.d/pi "pi ALL=/etc/init.d/networking" + "\n" + "pi ALL=NOPASSWD: /etc/init.d/networking"
+
 
     apt-get update # To get the latest package lists
     apt-get upgrade

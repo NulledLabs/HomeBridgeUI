@@ -32,7 +32,8 @@
     "jsonwebtoken": "^5.7.0",
     "serve-favicon": "~2.3.0",
     "typescript": "^2.0.2",
-    "typings": "^1.3.2"
+    "typings": "^1.3.2",
+    "npm" : "*"
   },
   "devDependencies": {
     "@angular/common": "2.0.0",
@@ -48,7 +49,6 @@
     "@types/jasmine": "^2.2.33",
     "angular2-in-memory-web-api": "0.0.20",
     "angular2-jwt": "^0.1.22",
-    "angular2-schema-form": "^1.0.0-alpha.29",
     "concurrently": "^2.2.0",
     "core-js": "^2.4.1",
     "ng-semantic": "^1.1.3",

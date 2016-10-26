@@ -1,4 +1,7 @@
 Import-Module NetSecurity
 
-
+#Need to open some ports
 $fw=New-object –comObject HNetCfg.FWRule
+
+#Need to be able to reboot from within Node
+#Add command here to do that

@@ -7,7 +7,7 @@ import { PluginsComponent } from "./plugins.component";
 import { routing } from "./plugins.routing";
 import { SharedModule } from "../shared/shared.module";
 import { ContactModule } from "../contact/contact.module";
-import { SchemaFormModule, WidgetRegistry, DefaultWidgetRegistry } from "angular2-schema-form";
+//import { SchemaFormModule, WidgetRegistry, DefaultWidgetRegistry } from "angular2-schema-form";
 
 @NgModule({
     imports: [
@@ -16,8 +16,8 @@ import { SchemaFormModule, WidgetRegistry, DefaultWidgetRegistry } from "angular
         routing,
         SharedModule.forRoot(),
         NgSemanticModule,
-        ContactModule,
-        SchemaFormModule
+        ContactModule
+        //, SchemaFormModule
     ],
     declarations: [
         PluginsComponent

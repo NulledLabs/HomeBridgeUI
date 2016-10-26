@@ -2,10 +2,10 @@ import { Router, Response, Request, NextFunction } from "express";
 import { verify } from "jsonwebtoken";
 import { secret } from "../config";
 
-const protectedRouter: Router = Router();
+const metalRouter: Router = Router();
 
 //TODO: Change secret to be in config.json
-protectedRouter.use((request: Request & { headers: { authorization: string } }, response: Response, next: NextFunction) => {
+metalRouter.use((request: Request & { headers: { authorization: string } }, response: Response, next: NextFunction) => {
     const token = request.headers.authorization;
 
     verify(token, secret, function(tokenError) {
@@ -19,14 +19,23 @@ protectedRouter.use((request: Request & { headers: { authorization: string } }, 
     });
 });
 
-protectedRouter.get("/", (request: Request, response: Response) => {
+//TODO: Reboot stub
+metalRouter.post("/reboot", (request: Request, response: Response) => {
     response.json({
         text: "Greetings, you have valid token.",
         title: "Protected call"
     });
 });
 
-export { protectedRouter }
+//TODO: Log stub
+metalRouter.get("/logs", (request: Request, response: Response) => {
+    response.json({
+        text: "Greetings, you have valid token.",
+        title: "Protected call"
+    });
+});
+
+export { metalRouter }
 
 
 

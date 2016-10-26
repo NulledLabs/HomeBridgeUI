@@ -4,7 +4,7 @@ import { sign } from "jsonwebtoken";
 import { secret, length, digest } from "../config";
 import * as fs from "fs";
 
-const loginRouter: Router = Router();
+const userRouter: Router = Router();
 
 // const user = {
 //     hashedPassword: "6fb3a68cb5fe34d0c2c9fc3807c8fa9bc0e7dd10023065ea4233d40a2d6bb4a7e336a82f48bcb5a7cc95b8a590cf03a4a07615a226d09a89420a342584a" +
@@ -15,27 +15,31 @@ const loginRouter: Router = Router();
 // };
 const user = require('../../config.json');
 
-//TODO: Change secret to be in config.json
+userRouter.post("/change", function (request: Request, response: Response, next: NextFunction) {
 
-// login method
-loginRouter.post("/", function (request: Request, response: Response, next: NextFunction) {
+    if (!request.body.hasOwnProperty("username")) {
+        let err = new Error("No username");
+        return next(err);
+    }
 
-    pbkdf2(request.body.password, user.salt, 10000, length, digest, (err: Error, hash: Buffer) => {
-        if (err) {
-            console.log(err);
-        }
+    if (!request.body.hasOwnProperty("password")) {
+        let err = new Error("No password");
+        return next(err);
+    }
 
-        // check if password is active
-        if (hash.toString("hex") === user.hashedPassword) {
+    var username = request.body.username;
+    var password = request.body.password;
 
-            const token = sign({"user": user.username, permissions: []}, secret, { expiresIn: "7d" });
-            response.json({"jwt": token});
+    //TODO: Save to config.json
 
-        } else {
-            response.json({message: "Wrong password"});
-        }
+    const salt = randomBytes(128).toString("base64");
 
+    pbkdf2(password, salt, 10000, length, digest, (err: Error, hash: Buffer) => {
+        response.json({
+            hashed: hash.toString("hex"),
+            salt: salt
+        });
     });
 });
 
-export { loginRouter }
+export { userRouter }
