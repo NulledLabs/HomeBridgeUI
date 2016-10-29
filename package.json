@@ -39,6 +39,7 @@
     "@types/jsonwebtoken": "^7.1.31",
     "@types/serve-favicon": "^2.2.27",
     "angular": "^1.5.8",
+    "angular-jwt": "^0.1.7",
     "angular-sanitize": "^1.5.8",
     "angular-schema-form": "^0.8.13",
     "angular-schema-form-bootstrap": "^0.2.0",

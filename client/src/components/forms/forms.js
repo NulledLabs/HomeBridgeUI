@@ -16,7 +16,10 @@ let formsModule = angular.module('forms', [
   $stateProvider
     .state('forms', {
       url: '/forms/:name',
-      template: '<forms></forms>'
+      template: '<forms></forms>',
+      data: {
+        requiresLogin: true
+      }
     });
 })
 

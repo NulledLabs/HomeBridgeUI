@@ -19,15 +19,13 @@ const user = require('../../config.json').user;
 
 // login method
 loginRouter.post("/", function (request: Request, response: Response, next: NextFunction) {
-    let salt = new Buffer(user.salt, "binary");
-    console.log(salt);
     pbkdf2(request.body.password, user.salt, 10000, length, digest, (err: Error, hash: Buffer) => {
         if (err) {
             console.log(err);
         }
 
         // check if password is active
-        if (hash.toString("hex") === user.hashedPassword) {
+        if (hash.toString("hex") === user.hashedPassword && request.body.username === user.username) {
 
             const token = sign({"user": user.username, permissions: []}, secret, { expiresIn: "7d" });
             response.json({"jwt": token});

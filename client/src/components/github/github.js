@@ -11,7 +11,10 @@ let githubModule = angular.module('github', [
   $stateProvider
     .state('github', {
       url: '/github',
-      template: '<github></github>'
+      template: '<github></github>',
+      data: {
+        requiresLogin: true
+      }
     });
 })
 
