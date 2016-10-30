@@ -1,0 +1,83 @@
+{
+  "homebridge-nest": {
+    "name": "homebridge-nest",
+    "description": "Nest plugin for homebridge",
+    "version": "1.1.2",
+    "repository": {
+      "type": "git",
+      "url": "git://github.com/kraigm/homebridge-nest.git"
+    },
+    "license": "ISC",
+    "preferGlobal": true,
+    "keywords": [
+      "homebridge-plugin",
+      "nest"
+    ],
+    "engines": {
+      "node": ">=0.12.0",
+      "homebridge": ">=0.2.5"
+    },
+    "dependencies": {
+      "firebase": "^2.3.2",
+      "bluebird": "^3.2.2",
+      "request-promise": "^1.0.2",
+      "unofficial-nest-api": "git+https://github.com/kraigm/unofficial_nodejs_nest.git#3cbd337adc32fab3b481659b38d86f9fcd6a9c02"
+    }
+  },
+  "homebridge-foscamcamera": {
+    "name": "homebridge-foscamcamera",
+    "description": "Foscam Plugin for HomeBridge (API 2.1): https://github.com/nfarina/homebridge",
+    "version": "0.2.5",
+    "repository": {
+      "type": "git",
+      "url": "https://github.com/luisiam/homebridge-foscamcamera.git"
+    },
+    "license": "ISC",
+    "preferGlobal": true,
+    "keywords": [
+      "homebridge-plugin"
+    ],
+    "engines": {
+      "node": ">=6.6.0",
+      "homebridge": ">=0.4.6"
+    },
+    "dependencies": {
+      "foscam-client": "^0.4.0",
+      "foscam-binary-client": "^0.2.1",
+      "homebridge-foscam-stream": "^0.3.11",
+      "chalk": "^1.1.3"
+    }
+  },
+  "homebridge-wol": {
+    "name": "homebridge-wol",
+    "version": "2.0.0",
+    "description": "A Wake on Lan plugin for Homebridge: https://github.com/nfarina/homebridge",
+    "main": "index.js",
+    "scripts": {
+      "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "keywords": [
+      "homebridge-plugin"
+    ],
+    "repository": {
+      "type": "git",
+      "url": "git://github.com/alexgustafsson/homebridge-wol.git"
+    },
+    "author": "Alex Gustafsson",
+    "contributors": [
+      {
+        "name": "Tiemo Kieft",
+        "email": "me@isogram.nl"
+      }
+    ],
+    "license": "ISC",
+    "dependencies": {
+      "net-ping": "^1.1.12",
+      "wake_on_lan": "0.0.4"
+    },
+    "engines": {
+      "node": ">=0.12.0",
+      "homebridge": ">=0.2.0"
+    }
+  }
+}

@@ -28,6 +28,12 @@ homebridgePluginRouter.get("/", (request: Request, response: Response) => {
     response.send(configFile);
 });
 
+homebridgePluginRouter.get("/installed", (request: Request, response: Response) => {
+    var configFile = fs.readFileSync('./installedPlugins.json','utf8');
+
+    response.send(configFile);
+});
+
 homebridgePluginRouter.get("/search", (request: Request, response: Response) => {
 
     // npm.load({}, function (err, npm) {
