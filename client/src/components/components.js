@@ -4,6 +4,7 @@ import Github from './github/github';
 import Forms from './forms/forms';
 import New from './new/new';
 import Login from './login/login';
+import Plugins from './plugins/plugins';
 
 export default angular.module('app.components', [
   Home.name,
@@ -11,4 +12,5 @@ export default angular.module('app.components', [
   Forms.name,
   New.name,
   Login.name,
+  Plugins.name,
 ]);

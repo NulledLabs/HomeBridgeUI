@@ -1,30 +1,30 @@
 <navbar></navbar>
-<div class="container">
-<h1>Forms</h1>
-<section>
-  <div class="row">
-  <div class="well bs-component col-lg-6">
-  <form name='form'
-        sf-schema='vm.schema'
-        sf-form='vm.form'
-        sf-model='vm.model'
-        sf-options='{
-          "labelHtmlClass": "col-lg-3",
-          "fieldHtmlClass": "col-lg-9",
-          "htmlClass": "form-horizontal"}'
-        ng-submit="vm.onSubmit(form)"
-        ></form>
-  </div>
-  </div>
-  <div class='row'>
-  <h3>Schema</h3>
-  <pre>{{vm.schema | json}}</pre>
-  </div>
-  <h3>Form</h3>
-  <pre>{{vm.form | json}}</pre>
+  <div class="container">
+  <h1>Forms</h1>
+  <section>
+    <div class="row">
+    <div class="well bs-component col-lg-6">
+    <form name='form'
+          sf-schema='vm.schema'
+          sf-form='vm.form'
+          sf-model='vm.model'
+          sf-options='{
+            "labelHtmlClass": "col-lg-3",
+            "fieldHtmlClass": "col-lg-9",
+            "htmlClass": "form-horizontal"}'
+          ng-submit="vm.onSubmit(form)"
+          ></form>
+    </div>
+    </div>
+    <div class='row'>
+    <h3>Schema</h3>
+    <pre>{{vm.schema | json}}</pre>
+    </div>
+    <h3>Form</h3>
+    <pre>{{vm.form | json}}</pre>
 
-  <h3>Model</h3>
-  <pre>{{vm.model | json}}</pre>
+    <h3>Model</h3>
+    <pre>{{vm.model | json}}</pre>
 
-</section>
+  </section>
 </div>

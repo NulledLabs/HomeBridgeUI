@@ -25,7 +25,10 @@ angular.module('myApp', [
     }],
     tokenGetter: () => {
       return localStorage.getItem('JWT');
-    }
+    },
+    whiteListedDomains: [
+      'npms.io'
+    ]
   });
   $httpProvider.interceptors.push('jwtInterceptor');
 })
