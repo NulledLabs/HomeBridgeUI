@@ -6,7 +6,20 @@ class PluginsService {
   }
 
   getInstalledPlugins() {
-
+    var url = '/homebridgeplugin/installed';
+    return this.$http({
+      method: 'GET',
+      url: url
+    }).success(function (data) {
+      // this callback will be called asynchronously
+      // when the response is available
+      return data.toJSON();
+    }).
+      error(function (data, status) {
+        // called asynchronously if an error occurs
+        // or server returns response with an error status.
+        alert(status);
+      });
   }
 
   getPackageInfo(name) {

@@ -4,6 +4,8 @@ class PluginsController {
     this.service = pluginsService;
     this.query = "";
     this.result = [];
+    this.installed = {};
+    this.getInstalledPlugins();
   }
 
   onSubmit(){
@@ -11,7 +13,9 @@ class PluginsController {
   }
 
   getInstalledPlugins(){
-
+    this.service.getInstalledPlugins().then((res) => {
+      this.installed = res.data;
+    });
   }
 
   getPackageInfo(name) {

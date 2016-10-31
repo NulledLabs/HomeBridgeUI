@@ -46,8 +46,8 @@
 <div class="container">
 <ul>
   <li ng-repeat="(key, value) in vm.result.results">
-    <div>{{value.package.name}}<div>
-    <div>{{value.package.description}}<div>
+    <h3><i style="margin-right: 5px; color:#5cb85c" class="glyphicon glyphicon-ok-circle" ng-if="vm.installed[value.package.name]"></i>{{value.package.name}}</h3>
+    <div>{{value.package.description}}</div>
   </li>
 </ul>
 </div>
