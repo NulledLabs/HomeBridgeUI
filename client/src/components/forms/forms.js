@@ -1,6 +1,7 @@
 import angular from 'angular';
 import uiRouter from 'angular-ui-router';
 import formsComponent from './forms.component';
+import formsService from './forms.service';
 // order important: tv4 -> objectpath -> shemaForm -> shemaForm-bootstrap
 import 'tv4';
 import 'objectpath';
@@ -23,6 +24,7 @@ let formsModule = angular.module('forms', [
     });
 })
 
-.component('forms', formsComponent);
+.component('forms', formsComponent)
+.service('formsService', formsService);
 
 export default formsModule;

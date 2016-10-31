@@ -7,6 +7,7 @@ const homebridgePluginRouter: Router = Router();
 
 const config = require("../../config.json");
 const homebridgeDir = config.homebridgeDir;
+const homebridgeUIDir = config.homebridgeUIDir;
 
 // homebridgeRouter.use((request: Request & { headers: { authorization: string } }, response: Response, next: NextFunction) => {
 //     const token = request.headers.authorization;
@@ -101,8 +102,19 @@ homebridgePluginRouter.put("/config", (request: Request, response: Response) => 
 
 //TODO: Check first if the module has one, if not, check if we have one, if not, fail
 homebridgePluginRouter.get("/schema", (request: Request, response: Response) => {
-    var filePath = homebridgeDir + '/node_modules/' + request.query.name + '/config.schema.json';
-    var schemaFile = fs.readFileSync(filePath,'utf8');
+    var filePath = homebridgeDir + 'node_modules/' + request.query.name + '/config.schema.json';
+    var missingFilePath = homebridgeUIDir + "plugin-schemas/" + request.query.name + '/config.schema.json';
+    var schemaFile = "";
+
+    if (fs.existsSync(filePath))
+    {
+        schemaFile = fs.readFileSync(filePath, 'utf8');
+    }
+    else if (fs.existsSync(missingFilePath))
+    {
+        console.log("Filepath does not exist: " + filePath);
+        schemaFile = fs.readFileSync(missingFilePath, 'utf8');
+    }
 
     response.send(schemaFile);
 });
@@ -111,7 +123,7 @@ homebridgePluginRouter.get("/schema", (request: Request, response: Response) => 
 homebridgePluginRouter.get("/readme", (request: Request, response: Response) => {
     var name = request.query.name;
     var filePath = homebridgeDir + 'node_modules/' + name + '/README.md';
-    var readMeFile = fs.readFileSync(filePath,'utf8');
+    var readMeFile = fs.readFileSync(filePath, 'utf8');
 
     response.send(readMeFile);
 });
