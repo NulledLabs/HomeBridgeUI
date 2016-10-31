@@ -46,7 +46,11 @@
 <div class="container">
 <ul>
   <li ng-repeat="(key, value) in vm.result.results">
-    <h3><i style="margin-right: 5px; color:#5cb85c" class="glyphicon glyphicon-ok-circle" ng-if="vm.installed[value.package.name]"></i>{{value.package.name}}</h3>
+    <h3>
+      <i style="margin-right: 5px; color:#5cb85c" class="glyphicon glyphicon-ok-sign" ng-if="vm.installed[value.package.name]"></i>
+      <i style="margin-right: 5px; color:#2fa4e7" class="glyphicon glyphicon-plus-sign" ng-if="!vm.installed[value.package.name]"></i>
+      {{value.package.name}}
+    </h3>
     <div>{{value.package.description}}</div>
   </li>
 </ul>
