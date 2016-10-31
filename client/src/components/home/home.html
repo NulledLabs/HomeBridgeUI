@@ -3,12 +3,66 @@
 </header>
 <main>
   <div class="container">
-    <h1>You can find my template inside {{ vm.name }}.html</h1>
-    <ul>
-      <li>Angular 1.5</li>
-      <li>UI Router</li>
-      <li>Webpack</li>
-      <li>ES 6 / Babel</li>
-    </ul>
+    <h1>Dashboard</h1>
+
+    <div>
+        <h2>Plugins</h2>
+        <div>
+          <alert>Upgrades Available</alert>
+          <span><a href="#">Upgrade All</a></span>
+        </div>
+        <div class="plugins row">
+          <div class="plugin panel panel-default col-lg-3">
+            <div class="panel-heading">
+              <h3 class="panel-title">Nest</h3>
+            </div>
+            <div class="panel-body">
+              <span>v0.15</span> - <a href="#">upgrade</a> | <a href="#">configure</a>
+            </div>
+          </div>
+          <div class="plugin panel panel-default col-lg-3">
+            <div class="panel-heading">
+              <h3 class="panel-title">Yamaha</h3>
+            </div>
+            <div class="panel-body">
+              <span>v0.15</span> - <a href="#">configure</a>
+            </div>
+          </div>
+        </div>
+    </div>
+
+    <div>
+        <h2>Events</h2>
+        <ul>
+          <li><span>Frontdoor unlocked @ <span class="datetime">10/31/2016 12:28PM</span></span></li>
+          <li><span style="color: red">Homebridge crashed...</span> - <span class="datetime">10/31/2016 12:28PM</span></li>
+        </ul>
+    </div>
+
+    <div>
+        <h2>Homebridge Status</h2>
+        <ul>
+          <li>Homebridge - <span style="color: green">Running</span> <a href="#">restart</a></li>
+          <li>HomebridgeUI - <span style="color: green">Running</span> <a href="#">restart</a></li>
+        </ul>
+    </div>
+
+    <div>
+        <h2>Logs</h2>
+        <textarea style="background-color: #fff; width: 500px; height: 200px; overflow: scroll;">
+          Bullshit...
+
+          Bullshit...
+
+          Bullshit...
+
+          Bullshit...
+
+          Bullshit...
+
+          Bullshit...
+          
+        </textarea>
+    </div>
   </div>
 </main>
