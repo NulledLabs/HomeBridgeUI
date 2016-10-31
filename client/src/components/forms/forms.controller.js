@@ -8,14 +8,22 @@ class FormController extends BaseFormController {
 
     this.pluginName = $stateParams.name;
 
-    //this.schema = "";
-
+    //Loads our VM
     this.getPluginSchema(this.pluginName);
+    this.getPluginConfig(this.pluginName);
   }
 
   getPluginSchema(name) {
     this.service.getPluginSchema(name).then((res) => {
-      this.schema = res.data;
+      this.schema = res.data.schema || {};
+      //this.form = res.data.form || {};
+      //this.model = res.data.model || {};
+    });
+  }
+
+  getPluginConfig(name) {
+    this.service.getPluginConfig(name).then((res) => {
+      this.model = res.data || {};
     });
   }
 }

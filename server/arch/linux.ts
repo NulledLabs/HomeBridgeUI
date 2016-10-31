@@ -1,4 +1,4 @@
-class Linux implements Arch {
+class Linux implements IArch {
     Reboot()
     {
         require('child_process')
@@ -7,5 +7,10 @@ class Linux implements Arch {
         });
 
         return true
+    }
+
+    IsHomeBridgeRunning()
+    {
+        return true;
     }
 }

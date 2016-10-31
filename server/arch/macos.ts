@@ -1,4 +1,4 @@
-class Win implements IArch {
+class MacOs implements IArch {
     Reboot()
     {
         return true

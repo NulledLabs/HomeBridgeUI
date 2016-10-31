@@ -1,0 +1,12 @@
+[
+    {
+        "timestamp": "2016-10-31 18:21:00-5",
+        "config":
+        {
+            "name": "Nest",
+            "clientId": "123456",
+            "clientSecret": "0988765431",
+            "token": "ABC"
+        }
+    }
+]
