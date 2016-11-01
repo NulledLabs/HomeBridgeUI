@@ -6,32 +6,36 @@
     <h1>Dashboard</h1>
 
     <div>
-        <h2>Plugins</h2>
         <div>
-          <alert>Upgrades Available</alert>
-          <span><a href="#">Upgrade All</a></span>
+          <h2>Accessories</h2>
         </div>
-        <div class="plugins row">
-          <div class="plugin panel panel-default panel-warning col-lg-3">
-            <div class="panel-heading">
-              <h3 class="panel-title">Nest</h3>
-            </div>
-            <div class="panel-body">
-              <span>v0.15</span> - 
-              <strong><a href="#">upgrade</a></strong> | <a ui-sref="forms({name: 'homebridge-nest'})">configure</a>
-            </div>
+        
+        <div>
+          <h2>Platforms</h2>
+        </div>
+
+        <div>
+          <h2>Plugins</h2>
+          <div>
+            <alert>Upgrades Available</alert>
+            <span><a href="#">Upgrade All</a></span>
           </div>
-          <div class="plugin panel panel-default col-lg-3">
-            <div class="panel-heading">
-              <h3 class="panel-title">Yamaha</h3>
+          <div class="plugins row">
+
+            <div ng-repeat="(pluginName, plugin) in vm.installed" class="plugin panel panel-default col-lg-3 panel-warning">
+              <div class="panel-heading">
+                <h3 class="panel-title">{{pluginName}}</h3>
+              </div>
+              <div class="panel-body">
+                <span>v{{plugin.version}}</span> - 
+                <strong><a href="#">upgrade</a></strong> | <a ui-sref="forms({name: pluginName})">configure</a>
+              </div>
             </div>
-            <div class="panel-body">
-              <span>v0.15</span> - <a ui-sref="forms({name: 'homebridge-yamaha'})">configure</a>
-            </div>
+
           </div>
         </div>
     </div>
-
+    
     <div>
         <h2>Events</h2>
         <ul>
