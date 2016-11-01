@@ -34,7 +34,19 @@ homebridgePluginRouter.get("/", (request: Request, response: Response) => {
 
 homebridgePluginRouter.get("/installed", (request: Request, response: Response) => {
     //var configFile = fs.readFileSync('./installedPlugins.json','utf8');
-    var configFile = Plugin.installed();
+    Plugin.addPluginPath(homebridgeDir + "node_modules");
+    console.log("Homebridge plugin paths:" + Plugin.paths.join(", "));
+
+    var installedPlugins :Array<any> = Plugin.installed();
+    var configFile = [];
+
+    for (var i = 0; i < installedPlugins.length; i++)
+    {
+        var plugin :any = installedPlugins[i].pluginPath;
+        //let pluginPath = plugin;
+        //let pjson = Plugin.loadPackageJSON(pluginPath);
+        //configFile[pjson.name] = pjson;
+    }
 
     response.send(configFile);
 });
@@ -92,15 +104,7 @@ homebridgePluginRouter.get("/config", (request: Request, response: Response) => 
     //const configPath = name + '/config.ui.json';
     //const config = require(configPath)
 
-    const uiConfigFilePath = homebridgeUIDir + 'plugins/' + name + '.config.json';
-    //var configFile = fs.readFileSync(filePath, 'utf8');
-    var configFile = require(uiConfigFilePath);
-
-    configFile.sort((a:any, b:any): number => {
-        // Turn your strings into dates, and then subtract them
-        // to get a value that is either negative, positive, or zero.
-        return new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime();
-    });
+    var configFile = getConfigHistory(name);
 
     response.send(configFile[0].config);
 });
@@ -116,7 +120,8 @@ homebridgePluginRouter.put("/config", (request: Request, response: Response) => 
 
 //TODO: Check first if the module has one, if not, check if we have one, if not, fail
 homebridgePluginRouter.get("/schema", (request: Request, response: Response) => {
-    const name = request.query.name;
+    const name = request.quer
+    y.name;
     const configPath = name + '/config.ui.json';
 
     const filePath = homebridgeDir + 'node_modules/' + configPath;
@@ -144,5 +149,20 @@ homebridgePluginRouter.get("/readme", (request: Request, response: Response) => 
 
     response.send(readMeFile);
 });
+
+function getConfigHistory(name :string) :any
+{
+    const uiConfigFilePath = homebridgeUIDir + 'plugins/' + name + '.config.json';
+    //var configFile = fs.readFileSync(filePath, 'utf8');
+    var configFile = require(uiConfigFilePath);
+
+    configFile.sort((a:any, b:any): number => {
+        // Turn your strings into dates, and then subtract them
+        // to get a value that is either negative, positive, or zero.
+        return new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime();
+    });
+
+    return configFile;
+}
 
 export { homebridgePluginRouter }
