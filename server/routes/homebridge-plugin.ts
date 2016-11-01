@@ -34,6 +34,8 @@ homebridgePluginRouter.get("/", (request: Request, response: Response) => {
 
 homebridgePluginRouter.get("/add", (request: Request, response: Response) => {
     var name = request.query.name;
+
+    console.log("npm install -g " + name);
     
     var exec = require('child_process').exec, child;
 
@@ -41,14 +43,14 @@ homebridgePluginRouter.get("/add", (request: Request, response: Response) => {
         function (error, stdout, stderr) {
             if (error == null)
             {
-                console.log('stdout: ' + stdout);
+                console.log(name + ':stdout: ' + stdout);
 
                 response.send(stdout);
             }
             else if (error !== null)
             {
-                console.log('stderr: ' + stderr);
-                console.log('exec error: ' + error);
+                console.log(name + ':stderr: ' + stderr);
+                console.log(name + ':exec error: ' + error);
 
                 response.send(stderr);
             }

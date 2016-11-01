@@ -5,6 +5,25 @@ class PluginsService {
     this.$http = $http;
   }
 
+  addPlugin(name) {
+    var url = '/homebridgeplugin/add';
+
+    return this.$http.get(url, name).then(
+      //success
+      (response) => {
+      // this callback will be called asynchronously
+      // when the response is available
+      //return data;
+      return true;
+    }, 
+      //error
+      (response) => {
+        // called asynchronously if an error occurs
+        // or server returns response with an error status.
+        console.log(response);
+    });
+  }
+
   getInstalledPlugins() {
     var url = '/homebridgeplugin/installed';
     return this.$http({
