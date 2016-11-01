@@ -50,6 +50,26 @@ homebridgePluginRouter.get("/installed", (request: Request, response: Response) 
     response.json(configFile);
 });
 
+homebridgePluginRouter.get("/outdated", (request: Request, response: Response) => {
+    var name = request.query.name;
+    
+    var exec = require('child_process').exec, child;
+
+    child = exec('npm outdated -json',
+        function (error, stdout, stderr) {
+            if (error == null)
+            {
+                response.send(stdout);
+                console.log('stdout: ' + stdout);
+            }
+            else if (error !== null) {
+                response.send(stderr);
+                console.log('stderr: ' + stderr);
+                console.log('exec error: ' + error);
+            }
+    });
+});
+
 homebridgePluginRouter.get("/search", (request: Request, response: Response) => {
 
     // npm.load({}, function (err, npm) {

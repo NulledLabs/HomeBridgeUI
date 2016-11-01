@@ -22,19 +22,35 @@
           </div>
           <div class="plugins row">
 
-            <div ng-repeat="(pluginName, plugin) in vm.installed" class="plugin panel panel-default col-lg-3 panel-warning">
+            <div ng-repeat="(pluginName, plugin) in vm.installed" ng-init="parent=$parent" class="plugin panel panel-default col-lg-3 panel-warning">
               <div class="panel-heading">
                 <h3 class="panel-title">{{pluginName}}</h3>
               </div>
+
               <div class="panel-body">
                 <p>{{plugin.description}}</p>
                 <span>v{{plugin.version}}</span> - 
-                <strong><a href="#">upgrade</a></strong> | <a ui-sref="forms({name: pluginName})">configure</a>
+                <span ng-hide="!parent.vm.outdated">
+                  Loading...
+                </span>
+                <span ng-show='parent.vm.outdated[pluginName]'>
+                  <strong><a href="#">upgrade</a></strong>
+                </span>
+                | <a ui-sref="forms({name: pluginName})">configure</a>
               </div>
             </div>
 
           </div>
         </div>
+    </div>
+
+    <div>
+      {{vm.outdated}}
+    </div>
+
+    <div>
+      <h2>Lodash</h2>
+      {{vm.outdated["lodash"]}}
     </div>
 
     <div>
