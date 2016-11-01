@@ -56,7 +56,7 @@
         <div>
           <h2>Plugins</h2>
 
-          <div class="alert alert-warning" role="alert">
+          <div class="alert alert-warning" role="alert" ng-show='vm.outdated | hasHomebridgePluginName'>
             <span class="glyphicon glyphicon-warning-sign"></span>
             <span class="sr-only">Warn: </span>
               Upgrades Available
@@ -69,27 +69,27 @@
 
           <div class="plugins row">
             <div ng-repeat="(pluginName, plugin) in vm.installed" class="col-lg-3">
-              <div class="panel panel-default" ng-class="(vm.outdated[pluginName] && vm.outdatedLoaded) ? 'panel-warning' : 'panel-success'">
+              <div class="panel panel-default" ng-class="(vm.outdated[pluginName] && vm.outdatedLoaded) ? 'panel-warning' : (!vm.outdated[pluginName] && vm.outdatedLoaded ? 'panel-success' : 'panel-info')">
                 <div class="panel-heading">
                   <h3 class="panel-title">{{pluginName}}</h3>
 
-                  <div class="pull-right">v{{plugin.version}}</div>
-
-                  <div ng-show="vm.outdated | isEmpty" class="alert alert-info row" role="alert">
-                    <span>Loading...</span>
-                  </div>
-                  <div ng-show='vm.outdated[pluginName] && vm.outdatedLoaded' class="alert alert-warning" role="alert">
+                  <span class="label label-info" ng-show="vm.outdated | isEmpty">
+                    <span class="glyphicon glyphicon-refresh glyphicon-spin"></span>
+                    <span class="sr-only">Loading...</span>
+                    <span>v{{plugin.version}}</span>
+                  </span>
+                  <span class="" ng-show='vm.outdated[pluginName] && vm.outdatedLoaded'>
+                    <button type="button" class="btn btn-default btn-xs btn-warning" >
                       <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
-                      <span class="sr-only">Error:</span>
-                      <a href="#">Upgrade</a>
-                  </div>
-                  <div ng-show='!vm.outdated[pluginName] && vm.outdatedLoaded' class="alert alert-success" role="alert">
-                      <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
-                      <span class="sr-only">OK:</span>
-                    <span>
-                      Up to Date
-                    </span>
-                  </div>
+                      <span class="sr-only">Upgrade</span>
+                      <span>v{{plugin.version}}</span>
+                    </button>
+                  </span>
+                  <span class="label label-success" ng-show='!vm.outdated[pluginName] && vm.outdatedLoaded'>
+                    <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+                    <span class="sr-only">Up to Date</span>
+                    <span>v{{plugin.version}}</span>
+                  </span>
                 </div>
 
                 <div class="panel-body">
@@ -98,6 +98,22 @@
                   <button type="button" class="btn btn-default btn-primary" ng-click="forms({name: pluginName})">
                     <span class="glyphicon glyphicon-cog" aria-hidden="true"></span> Configure
                   </button>
+
+                  <div class="btn-group" uib-dropdown>
+                    <button type="button" class="btn btn-primary">
+                      <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Actions
+                    </button>
+                    <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown"
+                        aria-haspopup="true" aria-expanded="false" uib-dropdown-toggle>
+                      <span class="caret"></span>
+                      <span class="sr-only">Toggle Dropdown</span>
+                    </button>
+                    <ul class="dropdown-menu" uib-dropdown-menu role="menu">
+                      <li><a href="#"><span class="glyphicon glyphicon-flash"></span> Error Logs</a></li>
+                      <li role="separator" class="divider"></li>
+                      <li><a href="#"><span class="glyphicon glyphicon-trash"></span> Remove</a></li>
+                    </ul>
+                  </div>
                 </div>
               </div>
             </div>
@@ -115,7 +131,7 @@
     </div>
 
     <div>
-        <h2>Metal Status</h2>
+        <h2>Metal</h2>
           <div class="alert alert-success" role="alert">
             Homebridge
             <span class="glyphicon glyphicon-ok"></span>
@@ -133,7 +149,7 @@
               <ul class="dropdown-menu" uib-dropdown-menu role="menu">
                 <li><a href="#"><span class="glyphicon glyphicon-flash"></span> Error Logs</a></li>
                 <li role="separator" class="divider"></li>
-                <li><a href="#"><span class="glyphicon glyphicon-refresh"></span> restart</a></li>
+                <li><a href="#"><span class="glyphicon glyphicon-refresh"></span> Restart</a></li>
               </ul>
             </div>
           </div>
@@ -155,7 +171,7 @@
               <ul class="dropdown-menu" uib-dropdown-menu role="menu">
                 <li><a href="#"><span class="glyphicon glyphicon-flash"></span> Error Logs</a></li>
                 <li role="separator" class="divider"></li>
-                <li><a href="#"><span class="glyphicon glyphicon-refresh"></span> restart</a></li>
+                <li><a href="#"><span class="glyphicon glyphicon-refresh"></span> Restart</a></li>
               </ul>
             </div>
           </div>

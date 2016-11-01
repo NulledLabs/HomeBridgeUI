@@ -22,6 +22,13 @@ let homeModule = angular.module('home', [
 
 .component('home', homeComponent)
 .service('pluginsService', pluginsService)
+.filter('hasHomebridgePluginName', function () {
+    return function (obj) {
+      Object.keys(obj).filter(function (propertyName) {
+          return propertyName.indexOf("homebridge-") === 0;
+      });
+    }
+})
 .filter('isEmpty', function () {
     var bar;
     return function (obj) {
@@ -32,6 +39,7 @@ let homeModule = angular.module('home', [
         }
         return true;
     };
-});
+})
+;
 
 export default homeModule;
