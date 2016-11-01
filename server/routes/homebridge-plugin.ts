@@ -121,7 +121,7 @@ homebridgePluginRouter.get("/installed", (request: Request, response: Response) 
 
 homebridgePluginRouter.get("/outdated", (request: Request, response: Response) => {
     var name = request.query.name;
-    
+
     var exec = require('child_process').exec, child;
 
     child = exec('npm outdated -g -json',
