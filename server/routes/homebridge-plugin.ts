@@ -38,17 +38,16 @@ homebridgePluginRouter.get("/installed", (request: Request, response: Response) 
     console.log("Homebridge plugin paths:" + Plugin.paths.join(", "));
 
     var installedPlugins :Array<any> = Plugin.installed();
-    var configFile = [];
+    var configFile = {};
 
     for (var i = 0; i < installedPlugins.length; i++)
     {
-        var plugin :any = installedPlugins[i].pluginPath;
-        //let pluginPath = plugin;
-        //let pjson = Plugin.loadPackageJSON(pluginPath);
-        //configFile[pjson.name] = pjson;
+        var plugin :any = installedPlugins[i];
+        let pjson = Plugin.loadPackageJSON(plugin.pluginPath);
+        configFile[pjson.name] = pjson;
     }
 
-    response.send(configFile);
+    response.json(configFile);
 });
 
 homebridgePluginRouter.get("/search", (request: Request, response: Response) => {
@@ -120,8 +119,7 @@ homebridgePluginRouter.put("/config", (request: Request, response: Response) => 
 
 //TODO: Check first if the module has one, if not, check if we have one, if not, fail
 homebridgePluginRouter.get("/schema", (request: Request, response: Response) => {
-    const name = request.quer
-    y.name;
+    const name = request.query.name;
     const configPath = name + '/config.ui.json';
 
     const filePath = homebridgeDir + 'node_modules/' + configPath;
