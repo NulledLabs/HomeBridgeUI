@@ -1,5 +1,10 @@
 <navbar></navbar>
 <header>
+  <script type="text/javascript">
+    $(document).ready(function() {
+      $(".dropdown-toggle").dropdown();
+    });
+  </script>
 </header>
 <main>
   <div class="container">
@@ -8,46 +13,92 @@
     <div>
         <div>
           <h2>Accessories</h2>
+          <div class="btn-group" uib-dropdown>
+            <button type="button" class="btn btn-primary">
+              <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Add
+            </button>
+            <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown"
+                aria-haspopup="true" aria-expanded="false" uib-dropdown-toggle>
+              <span class="caret"></span>
+              <span class="sr-only">Toggle Dropdown</span>
+            </button>
+            <ul class="dropdown-menu" uib-dropdown-menu role="menu">
+              <li><a href="#">Action</a></li>
+              <li><a href="#">Another action</a></li>
+              <li><a href="#">Something else here</a></li>
+              <li role="separator" class="divider"></li>
+              <li><a href="#">Separated link</a></li>
+            </ul>
+          </div>
         </div>
         
         <div>
           <h2>Platforms</h2>
+          <div class="btn-group" uib-dropdown>
+            <button type="button" class="btn btn-primary">
+              <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Add
+            </button>
+            <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown"
+                aria-haspopup="true" aria-expanded="false" uib-dropdown-toggle>
+              <span class="caret"></span>
+              <span class="sr-only">Toggle Dropdown</span>
+            </button>
+            <ul class="dropdown-menu" uib-dropdown-menu role="menu">
+              <li><a href="#">Action</a></li>
+              <li><a href="#">Another action</a></li>
+              <li><a href="#">Something else here</a></li>
+              <li role="separator" class="divider"></li>
+              <li><a href="#">Separated link</a></li>
+            </ul>
+          </div>
         </div>
 
         <div>
           <h2>Plugins</h2>
-          <div>
-            <alert>Upgrades Available</alert>
-            <span><a href="#">Upgrade All</a></span>
+
+          <div class="alert alert-warning" role="alert">
+            <span class="glyphicon glyphicon-warning-sign"></span>
+            <span class="sr-only">Warn: </span>
+              Upgrades Available
+            </span>
+
+            <button href="#" type="button" class="btn btn-default btn-primary">
+              <span class="glyphicon glyphicon-refresh"></span> Upgrade All
+            </button>
           </div>
+
           <div class="plugins row">
+            <div ng-repeat="(pluginName, plugin) in vm.installed" class="col-lg-3">
+              <div class="panel panel-default" ng-class="(vm.outdated[pluginName] && vm.outdatedLoaded) ? 'panel-warning' : 'panel-success'">
+                <div class="panel-heading">
+                  <h3 class="panel-title">{{pluginName}}</h3>
 
-            <div ng-repeat="(pluginName, plugin) in vm.installed" class="plugin panel panel-default col-lg-3"n g-class="(vm.outdated[pluginName] && vm.outdatedLoaded) ? 'panel-warning' : 'panel-success'">
-              <div class="panel-heading">
-                <h3 class="panel-title">{{pluginName}}</h3>
-              </div>
+                  <div class="pull-right">v{{plugin.version}}</div>
 
-              <div class="panel-body">
-                <p>{{plugin.description}}</p>
-                <span>v{{plugin.version}}</span> - 
-                <div ng-show="vm.outdated | isEmpty" class="alert alert-info" role="alert">
-                  <span>Loading...</span>
+                  <div ng-show="vm.outdated | isEmpty" class="alert alert-info row" role="alert">
+                    <span>Loading...</span>
+                  </div>
+                  <div ng-show='vm.outdated[pluginName] && vm.outdatedLoaded' class="alert alert-warning" role="alert">
+                      <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                      <span class="sr-only">Error:</span>
+                      <a href="#">Upgrade</a>
+                  </div>
+                  <div ng-show='!vm.outdated[pluginName] && vm.outdatedLoaded' class="alert alert-success" role="alert">
+                      <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+                      <span class="sr-only">OK:</span>
+                    <span>
+                      Up to Date
+                    </span>
+                  </div>
                 </div>
-                <div ng-show='vm.outdated[pluginName] && vm.outdatedLoaded' class="alert alert-danger" role="alert">
-                    <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
-                    <span class="sr-only">Error:</span>
-                    <a href="#">Upgrade</a>
+
+                <div class="panel-body">
+                  <p>{{plugin.description}}</p>
+                  
+                  <button type="button" class="btn btn-default btn-primary" ng-click="forms({name: pluginName})">
+                    <span class="glyphicon glyphicon-cog" aria-hidden="true"></span> Configure
+                  </button>
                 </div>
-                <div ng-show='!vm.outdated[pluginName] && vm.outdatedLoaded' class="alert alert-success" role="alert">
-                    <span class="glyphicon glyphicon-glyphicon-ok" aria-hidden="true"></span>
-                    <span class="sr-only">OK:</span>
-                  <span>
-                    Up to Date
-                  </span>
-                </div>
-                <button type="button" class="btn btn-default btn-primary" ng-click="forms({name: pluginName})">
-                  <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> Configure
-                </button>
               </div>
             </div>
 
@@ -64,11 +115,50 @@
     </div>
 
     <div>
-        <h2>Homebridge Status</h2>
-        <ul>
-          <li>Homebridge - <span style="color: green">Running</span> <a href="#">restart</a></li>
-          <li>HomebridgeUI - <span style="color: green">Running</span> <a href="#">restart</a></li>
-        </ul>
+        <h2>Metal Status</h2>
+          <div class="alert alert-success" role="alert">
+            Homebridge
+            <span class="glyphicon glyphicon-ok"></span>
+            <span class="sr-only">Running</span>
+
+            <div class="btn-group" uib-dropdown>
+              <button type="button" class="btn btn-primary">
+                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Actions
+              </button>
+              <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown"
+                  aria-haspopup="true" aria-expanded="false" uib-dropdown-toggle>
+                <span class="caret"></span>
+                <span class="sr-only">Toggle Dropdown</span>
+              </button>
+              <ul class="dropdown-menu" uib-dropdown-menu role="menu">
+                <li><a href="#"><span class="glyphicon glyphicon-flash"></span> Error Logs</a></li>
+                <li role="separator" class="divider"></li>
+                <li><a href="#"><span class="glyphicon glyphicon-refresh"></span> restart</a></li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="alert alert-success" role="alert">
+            HomebridgeUI
+            <span class="glyphicon glyphicon-ok"></span>
+            <span class="sr-only">Running</span>
+
+            <div class="btn-group" uib-dropdown>
+              <button type="button" class="btn btn-primary">
+                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Actions
+              </button>
+              <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown"
+                  aria-haspopup="true" aria-expanded="false" uib-dropdown-toggle>
+                <span class="caret"></span>
+                <span class="sr-only">Toggle Dropdown</span>
+              </button>
+              <ul class="dropdown-menu" uib-dropdown-menu role="menu">
+                <li><a href="#"><span class="glyphicon glyphicon-flash"></span> Error Logs</a></li>
+                <li role="separator" class="divider"></li>
+                <li><a href="#"><span class="glyphicon glyphicon-refresh"></span> restart</a></li>
+              </ul>
+            </div>
+          </div>
     </div>
 
     <div>
