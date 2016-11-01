@@ -6,6 +6,7 @@ class HomeController {
 
     this.installed = {};
     this.outdated = {};
+    this.outdatedLoaded = false;
 
     this.getInstalledPlugins();
     this.getOutdatedPlugins();
@@ -21,6 +22,7 @@ class HomeController {
     this.service.getOutdatedPlugins().then((res) => {
       console.log(res.data);
       this.outdated = res.data;
+      this.outdatedLoaded = true;
     });
   }
 }

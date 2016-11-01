@@ -30,11 +30,14 @@
               <div class="panel-body">
                 <p>{{plugin.description}}</p>
                 <span>v{{plugin.version}}</span> - 
-                <span ng-hide="!parent.vm.outdated">
+                <span ng-show="parent.vm.outdated | isEmpty">
                   Loading...
                 </span>
-                <span ng-show='parent.vm.outdated[pluginName]'>
+                <span ng-show='parent.vm.outdated[pluginName] && parent.vm.outdatedLoaded'>
                   <strong><a href="#">upgrade</a></strong>
+                </span>
+                <span ng-show='!parent.vm.outdated[pluginName] && parent.vm.outdatedLoaded'>
+                  <strong><a href="#">Up to Date</a></strong>
                 </span>
                 | <a ui-sref="forms({name: pluginName})">configure</a>
               </div>
@@ -42,15 +45,6 @@
 
           </div>
         </div>
-    </div>
-
-    <div>
-      {{vm.outdated}}
-    </div>
-
-    <div>
-      <h2>Lodash</h2>
-      {{vm.outdated["lodash"]}}
     </div>
 
     <div>

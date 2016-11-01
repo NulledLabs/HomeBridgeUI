@@ -21,6 +21,17 @@ let homeModule = angular.module('home', [
 })
 
 .component('home', homeComponent)
-.service('pluginsService', pluginsService);
+.service('pluginsService', pluginsService)
+.filter('isEmpty', function () {
+        var bar;
+        return function (obj) {
+            for (bar in obj) {
+                if (obj.hasOwnProperty(bar)) {
+                    return false;
+                }
+            }
+            return true;
+        };
+    });
 
 export default homeModule;
