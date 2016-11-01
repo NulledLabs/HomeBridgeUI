@@ -32,6 +32,75 @@ homebridgePluginRouter.get("/", (request: Request, response: Response) => {
     response.send(configFile);
 });
 
+homebridgePluginRouter.get("/add", (request: Request, response: Response) => {
+    var name = request.query.name;
+    
+    var exec = require('child_process').exec, child;
+
+    child = exec('npm install -g ' + name,
+        function (error, stdout, stderr) {
+            if (error == null)
+            {
+                console.log('stdout: ' + stdout);
+
+                response.send(stdout);
+            }
+            else if (error !== null)
+            {
+                console.log('stderr: ' + stderr);
+                console.log('exec error: ' + error);
+
+                response.send(stderr);
+            }
+    });
+});
+
+homebridgePluginRouter.get("/remove", (request: Request, response: Response) => {
+    var name = request.query.name;
+    
+    var exec = require('child_process').exec, child;
+
+    child = exec('npm uninstall -g ' + name,
+        function (error, stdout, stderr) {
+            if (error == null)
+            {
+                console.log('stdout: ' + stdout);
+
+                response.send(stdout);
+            }
+            else if (error !== null)
+            {
+                console.log('stderr: ' + stderr);
+                console.log('exec error: ' + error);
+
+                response.send(stderr);
+            }
+    });
+});
+
+homebridgePluginRouter.get("/update", (request: Request, response: Response) => {
+    var name = request.query.name;
+    
+    var exec = require('child_process').exec, child;
+
+    child = exec('npm update -g ' + name,
+        function (error, stdout, stderr) {
+            if (error == null)
+            {
+                console.log('stdout: ' + stdout);
+
+                response.send(stdout);
+            }
+            else if (error !== null)
+            {
+                console.log('stderr: ' + stderr);
+                console.log('exec error: ' + error);
+
+                response.send(stderr);
+            }
+    });
+});
+
 homebridgePluginRouter.get("/installed", (request: Request, response: Response) => {
     //var configFile = fs.readFileSync('./installedPlugins.json','utf8');
     Plugin.addPluginPath(homebridgeDir + "node_modules");
@@ -59,13 +128,15 @@ homebridgePluginRouter.get("/outdated", (request: Request, response: Response) =
         function (error, stdout, stderr) {
             if (error == null)
             {
-                response.send(stdout);
                 console.log('stdout: ' + stdout);
+
+                response.send(stdout);
             }
             else if (error !== null) {
-                response.send(stderr);
                 console.log('stderr: ' + stderr);
                 console.log('exec error: ' + error);
+
+                response.send(stderr);
             }
     });
 });
@@ -101,20 +172,6 @@ homebridgePluginRouter.get("/result", (request: Request, response: Response) => 
                 console.log('exec error: ' + error);
             }
     });
-});
-
-homebridgePluginRouter.put("/add", (request: Request, response: Response) => {
-    var name = request.query.name;
-    var configFile = fs.readFileSync('/Users/Mike/Code/homebridge/config.json','utf8');
-
-    response.send(configFile);
-});
-
-homebridgePluginRouter.delete("/remove", (request: Request, response: Response) => {
-    var name = request.query.name;
-    var configFile = fs.readFileSync('/Users/Mike/Code/homebridge/config.json','utf8');
-
-    response.send(configFile);
 });
 
 //TODO: Some sort of special handling since we're dealing with file reading
