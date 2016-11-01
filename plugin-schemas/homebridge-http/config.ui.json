@@ -1,0 +1,52 @@
+{
+    "type": "accessory",
+    "registeredAs": "Http",
+    "schema":
+    {
+        "type": "object",
+        "properties": {
+            "name": {
+                "type": "string",
+                "title": "Name"
+            },
+            "switchHandling": {
+                "type": "string",
+                "title": "Switch Handling",
+                "enum": ["realtime"]
+            },
+            "http_method": {
+                "type": "string",
+                "title": "Http Method",
+                "enum": ["GET", "POST"]
+            },
+            "on_url": {
+                "type": "string",
+                "title": "On URL"
+            },
+            "off_url": {
+                "type": "string",
+                "title": "Off URL"
+            },
+            "status_url": {
+                "type": "string",
+                "title": "Status URL"
+            },
+            "service": {
+                "type": "string",
+                "title": "Service"
+            },
+            "brightnessHandling": {
+                "type": "string",
+                "title": "Brightness Handling"
+            },
+            "brightness_url": {
+                "type": "string",
+                "title": "Brightness URL"
+            },
+            "brightnesslvl_url": {
+                "type": "string",
+                "title": "Brightness Level URL"
+            }
+        }
+    }
+}
