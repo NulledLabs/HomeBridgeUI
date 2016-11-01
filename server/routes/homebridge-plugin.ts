@@ -55,7 +55,7 @@ homebridgePluginRouter.get("/outdated", (request: Request, response: Response) =
     
     var exec = require('child_process').exec, child;
 
-    child = exec('npm outdated -json',
+    child = exec('npm outdated -g -json',
         function (error, stdout, stderr) {
             if (error == null)
             {
