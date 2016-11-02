@@ -79,12 +79,23 @@
                     <span>v{{plugin.version}}</span>
                   </span>
 
-                  <span class="" ng-show='vm.outdated[pluginName] && vm.outdatedLoaded'>
+                  <span class="btn-group" uib-dropdown ng-show='vm.outdated[pluginName] && vm.outdatedLoaded'>
                     <button type="button" ng-click="vm.updatePlugin(pluginName)" class="btn btn-default btn-xs btn-warning" >
                       <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
                       <span class="sr-only">Upgrade</span>
                       <span>v{{plugin.version}}</span>
                     </button>
+                    <button type="button" class="btn btn-default btn-xs btn-warning dropdown-toggle" data-toggle="dropdown"
+                          aria-haspopup="true" aria-expanded="false" uib-dropdown-toggle>
+                        <span class="caret"></span>
+                        <span class="sr-only">Toggle Dropdown</span>
+                    </button>
+                    <ul class="dropdown-menu" uib-dropdown-menu role="menu">
+                      <li>
+                        <a href ng-click="forceUpdatePlugin(pluginName)">
+                        <span class="glyphicon glyphicon-flash"></span> Force Upgrade</a>
+                      </li>
+                    </ul>
                   </span>
 
                   <span class="label label-success" ng-show='!vm.outdated[pluginName] && vm.outdatedLoaded'>

@@ -15,9 +15,11 @@ class PluginsController {
 
   addPlugin(name)
   {
-    alert("Adding: " + name);
+    console.log("Adding: " + name);
     this.service.addPlugin(name).then((res) => {
-      this.installed = res.data;
+      console.log(name + " installed.");
+      //this.installed = res.data;
+      getInstalledPlugins();
     });
   }
 
