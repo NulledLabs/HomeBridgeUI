@@ -97,7 +97,7 @@ class PluginsService
     }).success(function (data) {
       // this callback will be called asynchronously
       // when the response is available
-      return data.toJSON();
+      return data;
     }).
       error(function (data, status) {
         // called asynchronously if an error occurs
@@ -106,15 +106,15 @@ class PluginsService
       });
   }
 
-  getPluginConfig(name) {
-    var url = '/homebridgeplugin/config?name=';
+  getConfig(type, name) {
+    var url = '/homebridgeplugin/config?type=' + type + '&name=' + name;
     return this.$http({
       method: 'GET',
-      url: url + name
+      url: url
     }).success(function (data) {
       // this callback will be called asynchronously
       // when the response is available
-      return data.toJSON();
+      return data;
     }).
       error(function (data, status) {
         // called asynchronously if an error occurs

@@ -9,12 +9,23 @@ class HomeController {
     this.outdatedLoaded = false;
 
     this.accessories = {
-      "Nest1": {
-        "pluginName": "homebridge-nest",
+      "Left Garage Door": {
+        "moduleName": "homebridge-garage",
         "description": "Testing description"
       },
-      "Nest2": {
-        "pluginName": "homebridge-nest",
+      "Right Garage Door": {
+        "moduleName": "homebridge-garage",
+        "description": "Testing description"
+      }
+    };
+
+    this.platforms = {
+      "Nest": {
+        "moduleName": "homebridge-nest",
+        "description": "Testing description"
+      },
+      "Yamaha": {
+        "moduleName": "homebridge-yamaha",
         "description": "Testing description"
       }
     };

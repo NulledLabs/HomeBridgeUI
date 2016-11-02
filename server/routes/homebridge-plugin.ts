@@ -184,11 +184,12 @@ homebridgePluginRouter.get("/result", (request: Request, response: Response) => 
 
 //TODO: Some sort of special handling since we're dealing with file reading
 homebridgePluginRouter.get("/config", (request: Request, response: Response) => {
+    const type = request.query.type;
     const name = request.query.name;
     //const configPath = name + '/config.ui.json';
     //const config = require(configPath)
 
-    var configFile = getConfigHistory(name);
+    var configFile = getConfigHistory(type, name);
 
     response.send(configFile[0].config);
 });
@@ -208,7 +209,7 @@ homebridgePluginRouter.get("/schema", (request: Request, response: Response) => 
     const configPath = name + '/config.ui.json';
 
     const filePath = homebridgeDir + 'node_modules/' + configPath;
-    const missingFilePath = homebridgeUIDir + "plugin-schemas/" + configPath;
+    const missingFilePath = homebridgeUIDir + "ui-schemas/" + configPath;
     var schemaFile = "{}";
 
     if (fs.existsSync(filePath))
@@ -233,19 +234,19 @@ homebridgePluginRouter.get("/readme", (request: Request, response: Response) => 
     response.send(readMeFile);
 });
 
-function getConfigHistory(name :string) :any
+function getConfigHistory(type :string, name :string) :any
 {
-    const uiConfigFilePath = homebridgeUIDir + 'plugins/' + name + '.config.json';
+    const uiConfigFilePath = homebridgeUIDir + 'homebridgeconfigs/' + type + "/" + name + '.config.json';
     //var configFile = fs.readFileSync(filePath, 'utf8');
     var configFile = require(uiConfigFilePath);
 
-    configFile.sort((a:any, b:any): number => {
+    configFile.configs.sort((a:any, b:any): number => {
         // Turn your strings into dates, and then subtract them
         // to get a value that is either negative, positive, or zero.
         return new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime();
     });
 
-    return configFile;
+    return configFile.configs;
 }
 
 export { homebridgePluginRouter }

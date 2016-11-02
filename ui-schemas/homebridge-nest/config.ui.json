@@ -4,6 +4,12 @@
     "schema": {
         "type": "object",
         "properties": {
+            "platform": {
+                "type": "hidden",
+                "title": "Platform",
+                "default": "Nest",
+                "value": "Nest"
+            },
             "name": {
                 "type": "string",
                 "title": "Name"

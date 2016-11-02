@@ -36,14 +36,14 @@
             <div ng-repeat="(accessoryName, accessory) in vm.accessories" class="col-lg-4">
               <div class="panel panel-default">
                 <div class="panel-heading">
-                  <h3 class="panel-title">{{accessoryName}}</h3>
+                  <h3 class="panel-title">{{accessoryName}} ({{accessory.moduleName}})</h3>
                 </div>
 
                 <div class="panel-body">
                   <p>{{accessory.description}}</p>
 
                   <div class="btn-group" uib-dropdown>
-                    <button type="button" class="btn btn-default btn-primary" ui-sref="forms({type: 'homebridgeplugin', name: accessory.pluginName})">
+                    <button type="button" class="btn btn-default btn-primary" ui-sref="forms({moduleName: accessory.moduleName, type: 'accessories', name: accessoryName})">
                       <span class="glyphicon glyphicon-cog" aria-hidden="true"></span> Configure
                     </button>
                     <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown"
@@ -82,6 +82,37 @@
               <li role="separator" class="divider"></li>
               <li><a href="#">Separated link</a></li>
             </ul>
+          </div>
+
+          <div class="platforms row">
+            <div ng-repeat="(platformName, platform) in vm.platforms" class="col-lg-4">
+              <div class="panel panel-default">
+                <div class="panel-heading">
+                  <h3 class="panel-title">{{platformName}} ({{platform.moduleName}})</h3>
+                </div>
+
+                <div class="panel-body">
+                  <p>{{platform.description}}</p>
+
+                  <div class="btn-group" uib-dropdown>
+                    <button type="button" class="btn btn-default btn-primary" ui-sref="forms({moduleName: platform.moduleName, type: 'platforms', name: platformName})">
+                      <span class="glyphicon glyphicon-cog" aria-hidden="true"></span> Configure
+                    </button>
+                    <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown"
+                        aria-haspopup="true" aria-expanded="false" uib-dropdown-toggle>
+                      <span class="caret"></span>
+                      <span class="sr-only">Toggle Dropdown</span>
+                    </button>
+                    <ul class="dropdown-menu" uib-dropdown-menu role="menu">
+                      <li><a href="#"><span class="glyphicon glyphicon-flash"></span> Error Logs</a></li>
+                      <li role="separator" class="divider"></li>
+                      <li><a href="#" ng-click="vm.deactivatePlatform(platformName)"><span class="glyphicon glyphicon-minus-sign"></span> Deactivate</a></li>
+                      <li><a href="#" ng-click="vm.removePlatform(platformName)"><span class="glyphicon glyphicon-trash"></span> Remove</a></li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
 

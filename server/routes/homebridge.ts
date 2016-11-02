@@ -92,21 +92,21 @@ function buildFullConfig()
 {
     var homebridgeConfig = {"bridge":{}, "description":"", "platforms":[], "accessories":[]};
 
-    var homebridgeConfigFile :any[] = require(homebridgeConfigsDir + 'homebridge.config.json');
-    homebridgeConfig = merge([homebridgeConfig, homebridgeConfigFile[homebridgeConfigFile.length - 1].config]);
+    var homebridgeConfigFile :any = require(homebridgeConfigsDir + 'homebridge.config.json');
+    homebridgeConfig = merge([homebridgeConfig, homebridgeConfigFile.configs[homebridgeConfigFile.length - 1].config]);
 
     var accessoriesDir = homebridgeConfigsDir + '/accessories/';
     var accessoriesFiles :string[] = fs.readdirSync(accessoriesDir);
     accessoriesFiles.forEach(fileName => {
-        let accessoriesFile :any[] = require(accessoriesDir + fileName);
-        homebridgeConfig.accessories.push(accessoriesFile[accessoriesFile.length - 1].config);
+        let accessoriesFile :any = require(accessoriesDir + fileName);
+        homebridgeConfig.accessories.push(accessoriesFile.configs[accessoriesFile.length - 1].config);
     });
 
     var platformsDir = homebridgeConfigsDir + '/platforms/';
     var platformsFiles :string[] = fs.readdirSync(platformsDir);
     platformsFiles.forEach(fileName => {
-        let platformFile :any[] = require(platformsDir + fileName);
-        homebridgeConfig.platforms.push(platformFile[platformFile.length - 1].config);
+        let platformFile :any = require(platformsDir + fileName);
+        homebridgeConfig.platforms.push(platformFile.configs[platformFile.length - 1].config);
     });
 
     var configFile = fs.writeFileSync(homebridgeDir + "config.json", JSON.stringify(homebridgeConfig, null, '\t'), 'utf8');
