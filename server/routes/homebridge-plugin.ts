@@ -59,6 +59,8 @@ homebridgePluginRouter.get("/add", (request: Request, response: Response) => {
 
 homebridgePluginRouter.get("/remove", (request: Request, response: Response) => {
     var name = request.query.name;
+
+    console.log("npm uninstall -g " + name);
     
     var exec = require('child_process').exec, child;
 
@@ -82,6 +84,8 @@ homebridgePluginRouter.get("/remove", (request: Request, response: Response) => 
 
 homebridgePluginRouter.get("/update", (request: Request, response: Response) => {
     var name = request.query.name;
+
+    console.log("npm update -g " + name);
     
     var exec = require('child_process').exec, child;
 
@@ -123,6 +127,8 @@ homebridgePluginRouter.get("/installed", (request: Request, response: Response) 
 
 homebridgePluginRouter.get("/outdated", (request: Request, response: Response) => {
     var name = request.query.name;
+
+    console.log("npm outdated -g -json");
 
     var exec = require('child_process').exec, child;
 

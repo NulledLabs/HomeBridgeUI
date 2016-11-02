@@ -1,21 +1,66 @@
 
-class PluginsService {
-
-  constructor($http) {
+class PluginsService
+{
+  constructor($http)
+  {
     this.$http = $http;
   }
 
   addPlugin(name) {
-    var url = '/homebridgeplugin/add';
+    console.log("addPlugin:" + name);
 
-    return this.$http.get(url, name).then(
+    var url = '/homebridgeplugin/add?name=' + name;
+
+    return this.$http.get(url, {}).then(
       //success
       (response) => {
-      // this callback will be called asynchronously
-      // when the response is available
-      //return data;
-      return true;
-    }, 
+        // this callback will be called asynchronously
+        // when the response is available
+        //return data;
+        return true;
+      }, 
+      //error
+      (response) => {
+        // called asynchronously if an error occurs
+        // or server returns response with an error status.
+        console.log(response);
+    });
+  }
+
+  removePlugin(name) {
+    console.log("removePlugin:" + name);
+
+    var url = '/homebridgeplugin/remove?name=' + name;
+
+    return this.$http.get(url, {}).then(
+      //success
+      (response) => {
+        // this callback will be called asynchronously
+        // when the response is available
+        //return data;
+        return true;
+      }, 
+      //error
+      (response) => {
+        // called asynchronously if an error occurs
+        // or server returns response with an error status.
+        console.log(response);
+    });
+  }
+
+  updatePlugin(name) {
+    console.log("plugin.service.updatePlugin:" + name);
+
+    var url = '/homebridgeplugin/update?name=' + name;
+
+    return this.$http.get(url, {}).then(
+      //success
+      (response) => {
+        // this callback will be called asynchronously
+        // when the response is available
+        //return data;
+        return true;
+      }, 
       //error
       (response) => {
         // called asynchronously if an error occurs
@@ -25,7 +70,10 @@ class PluginsService {
   }
 
   getInstalledPlugins() {
+    console.log("getInstalledPlugin");
+
     var url = '/homebridgeplugin/installed';
+
     return this.$http({
       method: 'GET',
       url: url
@@ -43,7 +91,10 @@ class PluginsService {
 
 
   getOutdatedPlugins() {
+    console.log("getOutdatedPlugins");
+
     var url = '/homebridgeplugin/outdated';
+
     return this.$http({
       method: 'GET',
       url: url

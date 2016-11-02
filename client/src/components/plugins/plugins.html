@@ -50,11 +50,12 @@
         <div ng-repeat="(key, value) in vm.result.results">
             <h3>
                 <span class="glyphicon glyphicon-ok-sign text-success" ng-if="vm.installed[value.package.name]"></span>
-                <button type="button" class="btn btn-primary" ng-click="vm.addPlugin(value.package.name)">
-                    <span class="glyphicon glyphicon-plus" ng-if="!vm.installed[value.package.name]"></span>
+                <button type="button" class="btn btn-primary" ng-if="!vm.installed[value.package.name]" ng-click="vm.addPlugin(value.package.name)">
+                    <span class="glyphicon glyphicon-plus"></span>
                 </button>
                 {{value.package.name}}
             </h3>
+            <span>{{value.package.date}}</span>
             <div>{{value.package.description}}</div>
         </div>
     </div>

@@ -68,7 +68,7 @@
           </div>
 
           <div class="plugins row">
-            <div ng-repeat="(pluginName, plugin) in vm.installed" class="col-lg-3">
+            <div ng-repeat="(pluginName, plugin) in vm.installed" class="col-lg-4">
               <div class="panel panel-default" ng-class="(vm.outdated[pluginName] && vm.outdatedLoaded) ? 'panel-warning' : (!vm.outdated[pluginName] && vm.outdatedLoaded ? 'panel-success' : 'panel-info')">
                 <div class="panel-heading">
                   <h3 class="panel-title">{{pluginName}}</h3>
@@ -78,13 +78,15 @@
                     <span class="sr-only">Loading...</span>
                     <span>v{{plugin.version}}</span>
                   </span>
+
                   <span class="" ng-show='vm.outdated[pluginName] && vm.outdatedLoaded'>
-                    <button type="button" class="btn btn-default btn-xs btn-warning" >
+                    <button type="button" ng-click="vm.updatePlugin(pluginName)" class="btn btn-default btn-xs btn-warning" >
                       <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
                       <span class="sr-only">Upgrade</span>
                       <span>v{{plugin.version}}</span>
                     </button>
                   </span>
+
                   <span class="label label-success" ng-show='!vm.outdated[pluginName] && vm.outdatedLoaded'>
                     <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
                     <span class="sr-only">Up to Date</span>
@@ -111,7 +113,7 @@
                     <ul class="dropdown-menu" uib-dropdown-menu role="menu">
                       <li><a href="#"><span class="glyphicon glyphicon-flash"></span> Error Logs</a></li>
                       <li role="separator" class="divider"></li>
-                      <li><a href="#"><span class="glyphicon glyphicon-trash"></span> Remove</a></li>
+                      <li><a href="#" ng-click="vm.removePlugin(pluginName)"><span class="glyphicon glyphicon-trash"></span> Remove</a></li>
                     </ul>
                   </div>
                 </div>
