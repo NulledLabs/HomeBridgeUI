@@ -4,9 +4,9 @@
         "config":
         {
             "name": "Nest",
-            "clientId": "123456",
-            "clientSecret": "0988765431",
-            "token": "ABC"
+            "clientId": "",
+            "clientSecret": "",
+            "token": ""
         }
     }
 ]

@@ -8,6 +8,17 @@ class HomeController {
     this.outdated = {};
     this.outdatedLoaded = false;
 
+    this.accessories = {
+      "Nest1": {
+        "pluginName": "homebridge-nest",
+        "description": "Testing description"
+      },
+      "Nest2": {
+        "pluginName": "homebridge-nest",
+        "description": "Testing description"
+      }
+    };
+
     this.getInstalledPlugins();
     this.getOutdatedPlugins();
   }
@@ -15,9 +26,10 @@ class HomeController {
   addPlugin(name)
   {
     console.log("Adding: " + name);
+
     this.service.addPlugin(name).then((res) => {
-      //this.installed = res.data;
       this.getInstalledPlugins();
+
       alert(name + " installed.");
     });
   }
@@ -25,10 +37,13 @@ class HomeController {
   forceUpdatePlugin(name)
   {
     console.log("Force Updating: " + name);
+
+    this.outdatedLoaded = false;
+
     this.service.addPlugin(name).then((res) => {
-      //this.installed = res.data;
       this.getInstalledPlugins();
       this.getOutdatedPlugins();
+
       alert(name + " force updated.");
     });
   }
@@ -39,8 +54,8 @@ class HomeController {
 
     this.service.removePlugin(name).then((res) => {
       this.getInstalledPlugins();
+
       alert(name + " removed.");
-      //this.installed = res.data;
     });
   }
 
@@ -48,10 +63,12 @@ class HomeController {
   {
     console.log("updatePlugin:" + name);
     
+    this.outdatedLoaded = false;
+
     this.service.updatePlugin(name).then((res) => {
       this.getOutdatedPlugins();
+
       alert(name + " updated.");
-      //this.installed = res.data;
     });
   }
 

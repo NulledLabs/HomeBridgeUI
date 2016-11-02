@@ -2,6 +2,8 @@ import angular from 'angular';
 import uiRouter from 'angular-ui-router';
 import formsComponent from './forms.component';
 import formsService from './forms.service';
+import pluginsService from './../plugins/plugins.service';
+
 // order important: tv4 -> objectpath -> shemaForm -> shemaForm-bootstrap
 import 'tv4';
 import 'objectpath';
@@ -16,7 +18,7 @@ let formsModule = angular.module('forms', [
 .config(($stateProvider) => {
   $stateProvider
     .state('forms', {
-      url: '/forms/:name',
+      url: '/forms/:type/:name',
       template: '<forms></forms>',
       data: {
         requiresLogin: true
@@ -25,6 +27,7 @@ let formsModule = angular.module('forms', [
 })
 
 .component('forms', formsComponent)
-.service('formsService', formsService);
+.service('formsService', formsService)
+.service('pluginsService', pluginsService);
 
 export default formsModule;

@@ -1,20 +1,47 @@
 import BaseFormController from './base.js';
 
 class FormController extends BaseFormController {
-  constructor($scope, $stateParams, formsService) {
+  constructor($scope, $stateParams, formsService, pluginsService) {
     super($scope);
 
-    this.service = formsService;
+    this.formsService = formsService;
+    this.pluginsService = pluginsService;
 
-    this.pluginName = $stateParams.name;
+    this.type = $stateParams.type;
+    this.name = $stateParams.name;
 
     //Loads our VM
-    this.getPluginSchema(this.pluginName);
-    this.getPluginConfig(this.pluginName);
+    if (this.type == 'homebridgeplugin')
+    {
+      this.getPluginSchema(this.name);
+      this.getPluginConfig(this.name);
+    }
+    else if (this.type == 'accessory')
+    {
+      this.getPluginSchema(this.name);
+      this.getPluginConfig(this.name);
+    }
+    else if (this.type == 'platform')
+    {
+      this.getPluginSchema(this.name);
+      this.getPluginConfig(this.name);
+    }
+    else if (this.type == 'homebridgeui')
+    {
+
+    }
+    else if (this.type == 'homebridge')
+    {
+      
+    }
+    else
+    {
+      console.log("Unrecognized type parameter");
+    }
   }
 
   getPluginSchema(name) {
-    this.service.getPluginSchema(name).then((res) => {
+    this.pluginsService.getPluginSchema(name).then((res) => {
       this.schema = res.data.schema || {};
       //this.form = res.data.form || {};
       //this.model = res.data.model || {};
@@ -22,7 +49,7 @@ class FormController extends BaseFormController {
   }
 
   getPluginConfig(name) {
-    this.service.getPluginConfig(name).then((res) => {
+    this.pluginsService.getPluginConfig(name).then((res) => {
       this.model = res.data || {};
     });
   }

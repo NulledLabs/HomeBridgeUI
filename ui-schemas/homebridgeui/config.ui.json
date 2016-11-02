@@ -1,0 +1,20 @@
+{
+    "type": "homebridgeui",
+    "schema":
+    {
+        "type": "object",
+        "properties": {
+            "homebridgeDir": {
+                "type": "string",
+                "title": "Homebridge Directory",
+                "default": "/Users/Mike/Code/homebridge/"
+            },
+
+            "homebridgeUIDir": {
+                "type": "string",
+                "title": "HomebridgeUI Directory",
+                "default": "/Users/Mike/Code/HomeBridgeUI-ng15"
+            }
+        }
+    }
+}
