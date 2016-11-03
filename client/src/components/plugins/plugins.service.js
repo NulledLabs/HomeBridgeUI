@@ -85,7 +85,7 @@ class PluginsService
       error(function (data, status) {
         // called asynchronously if an error occurs
         // or server returns response with an error status.
-        alert(status);
+        console.log(status);
       });
   }
 
@@ -102,7 +102,7 @@ class PluginsService
       error(function (data, status) {
         // called asynchronously if an error occurs
         // or server returns response with an error status.
-        alert(status);
+        console.log(status);
       });
   }
 
@@ -119,7 +119,7 @@ class PluginsService
       error(function (data, status) {
         // called asynchronously if an error occurs
         // or server returns response with an error status.
-        alert(status);
+        console.log(status);
       });
   }
 
@@ -139,7 +139,7 @@ class PluginsService
       error(function (data, status) {
         // called asynchronously if an error occurs
         // or server returns response with an error status.
-        alert(status);
+        console.log(status);
       });
   }
 
@@ -156,7 +156,7 @@ class PluginsService
       error(function (data, status) {
         // called asynchronously if an error occurs
         // or server returns response with an error status.
-        alert(status);
+        console.log(status);
       });
   }
 
@@ -173,7 +173,7 @@ class PluginsService
       error(function (data, status) {
         // called asynchronously if an error occurs
         // or server returns response with an error status.
-        alert(status);
+        console.log(status);
       });
   }
 
@@ -190,7 +190,7 @@ class PluginsService
       error(function (data, status) {
         // called asynchronously if an error occurs
         // or server returns response with an error status.
-        alert(status);
+        console.log(status);
       });
   }
 }
