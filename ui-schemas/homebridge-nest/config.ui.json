@@ -20,10 +20,6 @@
                             "default": "Nest",
                             "value": "Nest"
                         },
-                        "name": {
-                            "type": "string",
-                            "title": "Name"
-                        },
                         "clientId": {
                             "type": "string",
                             "title": "Client ID"
@@ -31,6 +27,10 @@
                         "clientSecret": {
                             "type": "string",
                             "title": "Client Secret"
+                        },
+                        "code": {
+                            "type": "string",
+                            "title": "Pin Code"
                         },
                         "token": {
                             "type": "string",
