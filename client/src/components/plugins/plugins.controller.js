@@ -6,6 +6,7 @@ class PluginsController {
     this.result = [];
     this.installed = {};
     this.getInstalledPlugins();
+
   }
 
   onSubmit()
@@ -39,7 +40,11 @@ class PluginsController {
 
   searchPackages(query, from, size)
   {
+    this.selectedPlugin = undefined;
+    this.result = [];
+    this.searching = true;
     this.service.searchPackages(query, from, size).then((res) => {
+      this.searching = false;
       this.result = res.data;
     });
   }

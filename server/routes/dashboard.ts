@@ -22,7 +22,7 @@ const homebridgeDir = config.homebridgeDir
 // });
 
 dashboardRouter.get("/", (request: Request, response: Response) => {
-    var configFile = fs.readFileSync('/Users/Mike/Code/homebridge/config.json','utf8');
+    var configFile = fs.readFileSync(homebridgeDir + 'config.json','utf8');
 
     // response.json({
     //     text: "Greetings, you have valid token.",

@@ -55,6 +55,7 @@
     "jquery": "2.2.4",
     "jsonwebtoken": "^5.7.0",
     "lodash": "^4.16.4",
+    "moment": "^2.15.2",
     "npm": "*",
     "objectpath": "^1.2.1",
     "serve-favicon": "~2.3.0",

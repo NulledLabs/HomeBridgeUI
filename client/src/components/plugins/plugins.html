@@ -1,42 +1,137 @@
 <navbar></navbar>
 <div class="container" >
-    <div class="col-md-6 col-md-offset-3">
+    <div class="plugin-main row">
+        <div class="plugin-left-pane col-sm-5 col-xs-12" ng-class="{'hidden-xs': vm.selectedPlugin}">
 
-        <!-- Search Form -->
-        <form role="form" ng-submit="vm.onSubmit()">
-        
-        <!-- Search Field -->
-            <div class="row">
-                <h1 class="text-center">Search HomeBridge Plugins</h1>
-                <div class="form-group">
-                    <div class="input-group">
-                        <input 
-                          type="text"
-                          ng-model="vm.query" 
-                          placeholder="homebridge-" 
-                          typeahead-template-url="customTemplate.html" 
-                           
-                          typeahead-loading="loadingSuggestions" 
-                          typeahead-no-results="noResults" 
-                          class="form-control">
-                        <span class="input-group-btn">
-                            <button class="btn btn-success" type="submit">
-                                <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
-                                <span style="margin-left:10px;">Search</span>
-                            </button>
-                        </span>
-                    </div>
-                    <i ng-show="loadingSuggestions" class="glyphicon glyphicon-refresh"></i>
-                    <div ng-show="noResults">
-                      <i class="glyphicon glyphicon-remove"></i> No Results Found
-                    </div>
+            <!-- Search Form -->
+            <form role="form" class="plugin-search-form" ng-submit="vm.onSubmit()">
+            
+            <!-- Search Field -->
+                <div class="row">
+                    <div class="form-group">
+                        <div class="input-group">
+                            <span class="input-group-addon" id="basic-addon1">homebridge-</span>
+                            <input 
+                            type="text"
+                            ng-model="vm.query" 
+                            placeholder="" 
+                            typeahead-template-url="customTemplate.html" 
+                            
+                            typeahead-loading="loadingSuggestions" 
+                            typeahead-no-results="noResults" 
+                            class="form-control">
+                            <span class="input-group-btn">
+                                <button class="btn btn-success" type="submit">
+                                    <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+                                </button>
+                            </span>
+                        </div>
+                        <i ng-show="loadingSuggestions" class="glyphicon glyphicon-refresh"></i>
+                        <div ng-show="noResults">
+                        <i class="glyphicon glyphicon-remove"></i> No Results Found
+                        </div>
 
+                    </div>
+                </div>
+                
+            </form>
+            <!-- End of Search Form -->
+            <div class="plugin-search-results list-group">
+                <div class="plugin-searching" ng-if="vm.searching">
+                    <span class="glyphicon glyphicon-refresh spinning"></span> Searching...  
+                </div>
+                <div ng-repeat="(key, value) in vm.result.results" class="plugin-row" ng-class="{'selected': value == vm.selectedPlugin, odd: $odd}" ng-click="vm.selectedPlugin = value">
+
+                    <div class="plugin-name">
+                        <span class="glyphicon glyphicon-ok-sign" style="color:green;" ng-if="vm.installed[value.package.name] && value.package.version === vm.installed[value.package.name].version"></span>
+                        <span class="glyphicon glyphicon-plus-sign" style="color:dodgerblue;" ng-if="!vm.installed[value.package.name]"></span>
+                        <span class="glyphicon glyphicon-circle-arrow-up" style="color:orange;" ng-if="vm.installed[value.package.name] && value.package.version !== vm.installed[value.package.name].version"></span>
+                        {{value.package.name}}
+                        <span class="plugin-version">({{value.package.version}})</span>
+                    </div>
+                    <div class="plugin-description">{{value.package.description}}</div>
+                    <div class="plugin-updated">
+                        <span>updated</span>
+                        <span am-time-ago="value.package.date"></span>
+                        <span>by <strong>{{value.package.publisher.username}}</strong></span>
+                    </div>
                 </div>
             </div>
-            
-        </form>
-        <!-- End of Search Form -->
-            
+        </div>
+        <div class="plugin-right-pane col-sm-6 col-sm-offset-1" ng-class="{'hidden-xs': !vm.selectedPlugin}" ng-if="vm.selectedPlugin">
+            <button type="button" class="btn btn-primary btn-xs visible-xs" ng-click="vm.selectedPlugin = undefined">
+                Back
+            </button>
+
+            <div class="plugin-details name">{{vm.selectedPlugin.package.name}}</div>
+            <div class="plugin-details installed row">
+                <div class="plugin-details-label col-xs-3">Installed:</div>
+                <div class="col-xs-5">{{vm.installed[vm.selectedPlugin.package.name].version || 'not installed'}}</div>
+                <div class="col-xs-4"><button type="button" class="btn btn-danger btn-xs version-button" ng-if="vm.installed[vm.selectedPlugin.package.name]">Uninstall</button></div>
+            </div>
+            <div class="plugin-details description row">
+                <div class="plugin-details-label col-xs-12">Description:</div>
+                <div class="plugin-details-value col-xs-12">{{vm.selectedPlugin.package.description}}</div>
+            </div>
+            <div class="plugin-details keywords row">
+                <div class="plugin-details-label col-xs-3">Keyword(s):</div>
+                <div class="col-xs-9">
+                    <span ng-repeat="(key, value) in vm.selectedPlugin.package.keywords">
+                        {{value}}{{$last ? '' : ', '}}
+                    </span>
+                </div>
+            </div>
+            <div class="plugin-details latest row">
+                <div class="plugin-details-label col-xs-3">Latest Version:</div>
+                <div class="col-xs-5">{{vm.selectedPlugin.package.version}}</div>
+                <div class="col-xs-4">
+                    <button type="button" 
+                            class="btn btn-primary btn-xs version-button" 
+                            ng-if="!vm.installed[vm.selectedPlugin.package.name]">
+                        Install
+                    </button>
+                    <button type="button" 
+                            class="btn btn-primary btn-xs version-button" 
+                            ng-if="vm.installed[vm.selectedPlugin.package.name]"
+                            ng-disabled="vm.installed[vm.selectedPlugin.package.name] && vm.installed[vm.selectedPlugin.package.name].version === vm.selectedPlugin.package.version">
+                        Update
+                    </button>
+                </div>
+            </div>
+            <div class="plugin-details datepublished row">
+                <div class="plugin-details-label col-xs-3">Date published:</div>
+                <div class="col-xs-9">{{vm.selectedPlugin.package.date | amDateFormat:'dddd, MMMM D, YYYY'}}</div>
+            </div>
+            <div class="plugin-details publisher row">
+                <div class="plugin-details-label col-xs-3">Publisher:</div>
+                <div class="col-xs-9"><a href="https://www.npmjs.com/~{{vm.selectedPlugin.package.publisher.username}}" target="_blank">{{vm.selectedPlugin.package.publisher.username}}</a></div>
+            </div>
+            <div class="plugin-details maintainers row">
+                <div class="plugin-details-label col-xs-3">Maintainer(s):</div>
+                <div class="col-xs-9">
+                    <div ng-repeat="(key, value) in vm.selectedPlugin.package.maintainers">
+                        <a href="https://www.npmjs.com/~{{value.username}}" target="_blank">{{value.username}}</a>
+                    </div>
+                </div>
+            </div>
+            <div class="plugin-details link row">
+                <div class="plugin-details-label col-xs-3">Home Page:</div>
+                <div class="col-xs-9"><a href="{{vm.selectedPlugin.package.links.homepage}}" target="_blank">{{vm.selectedPlugin.package.links.homepage}}</a></div>
+            </div>
+            <div class="plugin-details link row">
+                <div class="plugin-details-label col-xs-3">Repository:</div>
+                <div class="col-xs-9"><a href="{{vm.selectedPlugin.package.links.repository}}" target="_blank">{{vm.selectedPlugin.package.links.repository}}</a></div>
+            </div>
+            <div class="plugin-details link row">
+                <div class="plugin-details-label col-xs-3">npm:</div>
+                <div class="col-xs-9"><a href="{{vm.selectedPlugin.package.links.npm}}" target="_blank">{{vm.selectedPlugin.package.links.npm}}</a></div>
+            </div>
+            <div class="plugin-details link row">
+                <div class="plugin-details-label col-xs-3">Bugs:</div>
+                <div class="col-xs-9"><a href="{{vm.selectedPlugin.package.links.bugs}}" target="_blank">{{vm.selectedPlugin.package.links.bugs}}</a></div>
+            </div>
+
+        </div>
     </div>
 </div>
 <script type="text/ng-template" id="customTemplate.html">
@@ -45,19 +140,5 @@
       <span ng-bind-html="match.label | uibTypeaheadHighlight:query"></span>
   </a>
 </script>
-<div class="container">
-    <div class="list-group">
-        <div ng-repeat="(key, value) in vm.result.results">
-            <h3>
-                <span class="glyphicon glyphicon-ok-sign text-success" ng-if="vm.installed[value.package.name]"></span>
-                <button type="button" class="btn btn-primary" ng-if="!vm.installed[value.package.name]" ng-click="vm.addPlugin(value.package.name)">
-                    <span class="glyphicon glyphicon-plus"></span>
-                </button>
-                {{value.package.name}}
-            </h3>
-            <span>{{value.package.date}}</span>
-            <div>{{value.package.description}}</div>
-        </div>
-    </div>
-</div>
+
 <!--uib-typeahead="data for data in vm.getSuggestions($viewValue, 10)"-->

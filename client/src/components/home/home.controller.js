@@ -31,7 +31,7 @@ class HomeController {
     };
 
     this.getInstalledPlugins();
-    this.getOutdatedPlugins();
+    // this.getOutdatedPlugins();
   }
 
   addPlugin(name)
@@ -85,8 +85,18 @@ class HomeController {
 
   getInstalledPlugins()
   {
+    var that = this;
     this.service.getInstalledPlugins().then((res) => {
-      this.installed = res.data;
+      that.installed = res.data;
+      angular.forEach(that.installed, function(value, key){
+        value.loading = true;
+        console.log(value, key);
+        that.service.getPackageInfo(key).then((res) => {
+          console.log(res);
+          value.latest = res.data.collected.metadata.version;
+          value.loading = false;
+        })
+      });
     });
   }
 
@@ -98,6 +108,7 @@ class HomeController {
       this.outdatedLoaded = true;
     });
   }
+
 }
 
 export default HomeController;
