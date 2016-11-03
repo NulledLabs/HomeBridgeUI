@@ -190,8 +190,13 @@ homebridgePluginRouter.get("/config", (request: Request, response: Response) => 
     //const config = require(configPath)
 
     var configFile = getConfigHistory(type, name);
+    var latestConfig :any = {};
+    if (typeof configFile == typeof Array)
+    {
+        latestConfig = configFile[0].config || {};
+    }
 
-    response.send(configFile[0].config);
+    response.send(latestConfig);
 });
 
 //TODO: Some sort of special handling since we're dealing with file writing
@@ -236,17 +241,21 @@ homebridgePluginRouter.get("/readme", (request: Request, response: Response) => 
 
 function getConfigHistory(type :string, name :string) :any
 {
-    const uiConfigFilePath = homebridgeUIDir + 'homebridgeconfigs/' + type + "/" + name + '.config.json';
-    //var configFile = fs.readFileSync(filePath, 'utf8');
-    var configFile = require(uiConfigFilePath);
+    const uiConfigFilePath = homebridgeUIDir + 'homebridgeconfigs/' + name + '.config.json';
+    var configFile :any = {};
+    
+    if (fs.existsSync(uiConfigFilePath))
+    {
+        var configFile = require(uiConfigFilePath);
 
-    configFile.configs.sort((a:any, b:any): number => {
-        // Turn your strings into dates, and then subtract them
-        // to get a value that is either negative, positive, or zero.
-        return new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime();
-    });
+        configFile.configs.sort((a:any, b:any): number => {
+            // Turn your strings into dates, and then subtract them
+            // to get a value that is either negative, positive, or zero.
+            return new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime();
+        });
+    }
 
-    return configFile.configs;
+    return configFile.configs || {};
 }
 
 export { homebridgePluginRouter }

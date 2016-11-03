@@ -7,7 +7,7 @@ const homebridgeRouter: Router = Router();
 const config = require("../../config.json");
 const homebridgeDir = config.homebridgeDir;
 const homebridgeUIDir = config.homebridgeUIDir;
-const homebridgeConfigsDir = homebridgeUIDir + "/homebridgeconfigs/";
+const homebridgeConfigsDir = homebridgeUIDir + "homebridgeconfigs/";
 
 // homebridgeRouter.use((request: Request & { headers: { authorization: string } }, response: Response, next: NextFunction) => {
 //     const token = request.headers.authorization;
@@ -93,20 +93,23 @@ function buildFullConfig()
     var homebridgeConfig = {"bridge":{}, "description":"", "platforms":[], "accessories":[]};
 
     var homebridgeConfigFile :any = require(homebridgeConfigsDir + 'homebridge.config.json');
-    homebridgeConfig = merge([homebridgeConfig, homebridgeConfigFile.configs[homebridgeConfigFile.length - 1].config]);
+    homebridgeConfig = merge([homebridgeConfig, homebridgeConfigFile.configs[homebridgeConfigFile.configs.length - 1].config]);
 
-    var accessoriesDir = homebridgeConfigsDir + '/accessories/';
-    var accessoriesFiles :string[] = fs.readdirSync(accessoriesDir);
-    accessoriesFiles.forEach(fileName => {
-        let accessoriesFile :any = require(accessoriesDir + fileName);
-        homebridgeConfig.accessories.push(accessoriesFile.configs[accessoriesFile.length - 1].config);
-    });
-
-    var platformsDir = homebridgeConfigsDir + '/platforms/';
-    var platformsFiles :string[] = fs.readdirSync(platformsDir);
-    platformsFiles.forEach(fileName => {
-        let platformFile :any = require(platformsDir + fileName);
-        homebridgeConfig.platforms.push(platformFile.configs[platformFile.length - 1].config);
+    var configDir = homebridgeConfigsDir;
+    var configFiles :string[] = fs.readdirSync(configDir);
+    configFiles.forEach(fileName => {
+        let configFile :any = require(configDir + fileName);
+        let config = configFile.configs[configFile.configs.length - 1].config;
+        if (config.accessories != null)
+        {
+            //homebridgeConfig.accessories.push(accessories);
+            homebridgeConfig.accessories = homebridgeConfig.accessories.concat(config.accessories);
+        }
+        if (config.platforms != null)
+        {
+            //homebridgeConfig.platforms.push(platforms);
+            homebridgeConfig.platforms = homebridgeConfig.platforms.concat(config.platforms);
+        }
     });
 
     var configFile = fs.writeFileSync(homebridgeDir + "config.json", JSON.stringify(homebridgeConfig, null, '\t'), 'utf8');

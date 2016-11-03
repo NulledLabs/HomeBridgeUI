@@ -4,6 +4,9 @@
     {
         "type": "object",
         "properties": {
+            "name": {
+                "type": "string"
+            },
             "homebridgeDir": {
                 "type": "string",
                 "title": "Homebridge Directory",

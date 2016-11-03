@@ -1,30 +1,42 @@
 {
-    "type": "platform",
-    "registeredAs": "YamahaAVR",
+    "type": "homebridge-plugin",
     "schema": {
         "type": "object",
         "properties": {
-            "platform": {
-                "type": "hidden",
-                "title": "Platform",
-                "default": "YamahaAVR"
-            },
-            "play_volume": {
+            "name": {
                 "type": "string",
-                "title": "Play Volume",
-                "default": -48
+                "title": "Name"
             },
-            "setMainInputTo": {
-                "type": "string",
-                "title": "Main Input Channel"
-            },
-            "manual_addresses": {
-                "type": "string",
-                "title": "Devices"
+            "platforms": {
+                "title": "Platforms",
+                "type": "array",
+                "maxItems": 1,
+                "items": {
+                    "type": "object",
+                    "properties": {
+                        "platform": {
+                            "type": "hidden",
+                            "title": "Platform",
+                            "default": "YamahaAVR"
+                        },
+                        "play_volume": {
+                            "type": "integer",
+                            "title": "Play Volume",
+                            "default": -48
+                        },
+                        "setMainInputTo": {
+                            "type": "string",
+                            "title": "Main Input Channel"
+                        },
+                        "manual_addresses": {
+                            "type": "string",
+                            "title": "Devices"
+                        }
+                    }
+                }
             }
         },
         "required": [
-            "platform"
         ]
     },
     "form": {},

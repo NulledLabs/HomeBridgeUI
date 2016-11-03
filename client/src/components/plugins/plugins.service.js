@@ -107,7 +107,7 @@ class PluginsService
   }
 
   getConfig(type, name) {
-    var url = '/homebridgeplugin/config?type=' + type + '&name=' + name;
+    var url = '/homebridgeplugin/config?name=' + name;
     return this.$http({
       method: 'GET',
       url: url
