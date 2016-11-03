@@ -53,7 +53,7 @@
                     <div class="plugin-updated">
                         <span>updated</span>
                         <span am-time-ago="value.package.date"></span>
-                        <span>by <a href="https://www.npmjs.com/~{{value.package.publisher.username}}" target="_blank">{{value.package.publisher.username}}</a></span>
+                        <span>by <strong>{{value.package.publisher.username}}</strong></span>
                     </div>
                 </div>
             </div>
@@ -73,6 +73,14 @@
                 <div class="plugin-details-label col-xs-12">Description:</div>
                 <div class="plugin-details-value col-xs-12">{{vm.selectedPlugin.package.description}}</div>
             </div>
+            <div class="plugin-details keywords row">
+                <div class="plugin-details-label col-xs-3">Keyword(s):</div>
+                <div class="col-xs-9">
+                    <span ng-repeat="(key, value) in vm.selectedPlugin.package.keywords">
+                        {{value}}{{$last ? '' : ', '}}
+                    </span>
+                </div>
+            </div>
             <div class="plugin-details latest row">
                 <div class="plugin-details-label col-xs-3">Latest Version:</div>
                 <div class="col-xs-5">{{vm.selectedPlugin.package.version}}</div>
@@ -90,26 +98,6 @@
                     </button>
                 </div>
             </div>
-            <div class="plugin-details maintainers row">
-                <div class="plugin-details-label col-xs-3">Maintainer(s):</div>
-                <div class="col-xs-9">
-                    <div ng-repeat="(key, value) in vm.selectedPlugin.package.maintainers">
-                        <a href="https://www.npmjs.com/~{{value.username}}" target="_blank">{{value.username}}</a>
-                    </div>
-                </div>
-            </div>
-            <div class="plugin-details keywords row">
-                <div class="plugin-details-label col-xs-3">Keyword(s):</div>
-                <div class="col-xs-9">
-                    <span ng-repeat="(key, value) in vm.selectedPlugin.package.keywords">
-                        {{value}}{{$last ? '' : ', '}}
-                    </span>
-                </div>
-            </div>
-            <div class="plugin-details publisher row">
-                <div class="plugin-details-label col-xs-3">Publisher:</div>
-                <div class="col-xs-9"><a href="https://www.npmjs.com/~{{vm.selectedPlugin.package.publisher.username}}" target="_blank">{{vm.selectedPlugin.package.publisher.username}}</a></div>
-            </div>
             <div class="plugin-details datepublished row">
                 <div class="plugin-details-label col-xs-3">Date published:</div>
                 <div class="col-xs-9">{{vm.selectedPlugin.package.date | amDateFormat:'dddd, MMMM D, YYYY'}}</div>
@@ -117,6 +105,14 @@
             <div class="plugin-details publisher row">
                 <div class="plugin-details-label col-xs-3">Publisher:</div>
                 <div class="col-xs-9"><a href="https://www.npmjs.com/~{{vm.selectedPlugin.package.publisher.username}}" target="_blank">{{vm.selectedPlugin.package.publisher.username}}</a></div>
+            </div>
+            <div class="plugin-details maintainers row">
+                <div class="plugin-details-label col-xs-3">Maintainer(s):</div>
+                <div class="col-xs-9">
+                    <div ng-repeat="(key, value) in vm.selectedPlugin.package.maintainers">
+                        <a href="https://www.npmjs.com/~{{value.username}}" target="_blank">{{value.username}}</a>
+                    </div>
+                </div>
             </div>
             <div class="plugin-details link row">
                 <div class="plugin-details-label col-xs-3">Home Page:</div>
