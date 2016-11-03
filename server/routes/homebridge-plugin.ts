@@ -184,14 +184,13 @@ homebridgePluginRouter.get("/result", (request: Request, response: Response) => 
 
 //TODO: Some sort of special handling since we're dealing with file reading
 homebridgePluginRouter.get("/config", (request: Request, response: Response) => {
-    const type = request.query.type;
     const name = request.query.name;
     //const configPath = name + '/config.ui.json';
     //const config = require(configPath)
 
-    var configFile = getConfigHistory(type, name);
+    var configFile = getConfigHistory(name);
     var latestConfig :any = {};
-    if (typeof configFile == typeof Array)
+    if (configFile.length > 0)
     {
         latestConfig = configFile[0].config || {};
     }
@@ -239,7 +238,7 @@ homebridgePluginRouter.get("/readme", (request: Request, response: Response) => 
     response.send(readMeFile);
 });
 
-function getConfigHistory(type :string, name :string) :any
+function getConfigHistory(name :string) :any[]
 {
     const uiConfigFilePath = homebridgeUIDir + 'homebridgeconfigs/' + name + '.config.json';
     var configFile :any = {};

@@ -11,26 +11,26 @@
     <h1>Dashboard</h1>
 
     <div>
+        <div class="btn-group" uib-dropdown>
+          <button type="button" class="btn btn-primary">
+            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Add
+          </button>
+          <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown"
+              aria-haspopup="true" aria-expanded="false" uib-dropdown-toggle>
+            <span class="caret"></span>
+            <span class="sr-only">Toggle Dropdown</span>
+          </button>
+          <ul class="dropdown-menu" uib-dropdown-menu role="menu">
+            <li ng-repeat="(pluginName, plugin) in vm.installed">
+              <a ui-sref="forms({moduleName: pluginName, name: ''})">{{pluginName}}</a>
+            </li>
+            <li role="separator" class="divider"></li>
+            <li><a href="#">Separated link</a></li>
+          </ul>
+        </div>
+
         <div>
           <h2>Accessories</h2>
-
-          <div class="btn-group" uib-dropdown>
-            <button type="button" class="btn btn-primary">
-              <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Add
-            </button>
-            <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown"
-                aria-haspopup="true" aria-expanded="false" uib-dropdown-toggle>
-              <span class="caret"></span>
-              <span class="sr-only">Toggle Dropdown</span>
-            </button>
-            <ul class="dropdown-menu" uib-dropdown-menu role="menu">
-              <li ng-repeat="(pluginName, plugin) in vm.installed">
-                <a ui-sref="forms({moduleName: pluginName, name: ''})">{{pluginName}}</a>
-              </li>
-              <li role="separator" class="divider"></li>
-              <li><a href="#">Separated link</a></li>
-            </ul>
-          </div>
 
           <div class="accessories row">
             <div ng-repeat="(accessoryName, accessory) in vm.accessories" class="col-lg-4">
@@ -66,23 +66,6 @@
         
         <div>
           <h2>Platforms</h2>
-          <div class="btn-group" uib-dropdown>
-            <button type="button" class="btn btn-primary">
-              <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Add
-            </button>
-            <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown"
-                aria-haspopup="true" aria-expanded="false" uib-dropdown-toggle>
-              <span class="caret"></span>
-              <span class="sr-only">Toggle Dropdown</span>
-            </button>
-            <ul class="dropdown-menu" uib-dropdown-menu role="menu">
-              <li><a href="#">Action</a></li>
-              <li><a href="#">Another action</a></li>
-              <li><a href="#">Something else here</a></li>
-              <li role="separator" class="divider"></li>
-              <li><a href="#">Separated link</a></li>
-            </ul>
-          </div>
 
           <div class="platforms row">
             <div ng-repeat="(platformName, platform) in vm.platforms" class="col-lg-4">
