@@ -1,10 +1,14 @@
 {
-    "type": "platform",
-    "registeredAs": "Nest",
+    "type": "homebridge-plugin",
     "schema": {
         "type": "object",
         "properties": {
+            "name": {
+                "type": "string",
+                "title": "Name"
+            },
             "platforms": {
+                "title": "Platforms",
                 "type": "array",
                 "maxItems": 1,
                 "items": {
