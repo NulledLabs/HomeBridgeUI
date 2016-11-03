@@ -1,0 +1,38 @@
+{
+    "type": "platform",
+    "name": "HeaterMeter",
+    "schema": {
+        "type": "object",
+        "properties": {
+            "name": {
+                "type": "string",
+                "title": "Name"
+            },
+            "host": {
+                "type": "string",
+                "title": "Host"
+            },
+            "port": {
+                "type": "number",
+                "title": "Port"
+            },
+            "username": {
+                "type": "string",
+                "title": "User Name"
+            },
+            "password": {
+                "type": "string",
+                "title": "Password"
+            }
+        },
+        "required": [
+            "name",
+            "host",
+            "port",
+            "username",
+            "password"
+        ]
+    },
+    "form": {},
+    "model": {}
+}

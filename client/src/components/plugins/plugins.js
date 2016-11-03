@@ -3,10 +3,12 @@ import uiRouter from 'angular-ui-router';
 import pluginsComponent from './plugins.component';
 import pluginsService from './plugins.service';
 import uiBootstrap from 'angular-ui-bootstrap';
+import angularMoment from 'angular-moment';
 
 let pluginsModule = angular.module('plugins', [
   uiRouter,
-  uiBootstrap
+  uiBootstrap,
+  angularMoment,
 ])
 
 .config(($stateProvider) => {
