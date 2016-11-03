@@ -93,20 +93,30 @@ function buildFullConfig()
     var homebridgeConfig = {"bridge":{}, "description":"", "platforms":[], "accessories":[]};
 
     var homebridgeConfigFile :any = require(homebridgeConfigsDir + 'homebridge.config.json');
-    homebridgeConfig = merge([homebridgeConfig, homebridgeConfigFile.configs[homebridgeConfigFile.length - 1].config]);
+    homebridgeConfig = merge([homebridgeConfig, homebridgeConfigFile.configs[homebridgeConfigFile.configs.length - 1].config]);
 
     var accessoriesDir = homebridgeConfigsDir + '/accessories/';
     var accessoriesFiles :string[] = fs.readdirSync(accessoriesDir);
     accessoriesFiles.forEach(fileName => {
         let accessoriesFile :any = require(accessoriesDir + fileName);
-        homebridgeConfig.accessories.push(accessoriesFile.configs[accessoriesFile.length - 1].config);
+        let accessories = accessoriesFile.configs[accessoriesFile.configs.length - 1].config.accessories;
+        if (accessories != null)
+        {
+            //homebridgeConfig.accessories.push(accessories);
+            homebridgeConfig.accessories = homebridgeConfig.accessories.concat(accessories);
+        }
     });
 
     var platformsDir = homebridgeConfigsDir + '/platforms/';
     var platformsFiles :string[] = fs.readdirSync(platformsDir);
     platformsFiles.forEach(fileName => {
         let platformFile :any = require(platformsDir + fileName);
-        homebridgeConfig.platforms.push(platformFile.configs[platformFile.length - 1].config);
+        let platforms = platformFile.configs[platformFile.configs.length - 1].config.platforms;
+        if (platforms != null)
+        {
+            //homebridgeConfig.platforms.push(platforms);
+            homebridgeConfig.platforms = homebridgeConfig.platforms.concat(platforms);
+        }
     });
 
     var configFile = fs.writeFileSync(homebridgeDir + "config.json", JSON.stringify(homebridgeConfig, null, '\t'), 'utf8');
