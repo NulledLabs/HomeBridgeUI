@@ -162,10 +162,6 @@
 
                 <div class="panel-body">
                   <p>{{plugin.description}}</p>
-                  
-                  <button type="button" class="btn btn-default btn-primary" ng-click="vm.forms({name: pluginName})">
-                    <span class="glyphicon glyphicon-cog" aria-hidden="true"></span> Configure
-                  </button>
 
                   <div class="btn-group" uib-dropdown>
                     <button type="button" class="btn btn-primary">
@@ -207,7 +203,7 @@
 
             <div class="btn-group" uib-dropdown>
               <button type="button" class="btn btn-primary">
-                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Actions
+                <span class="glyphicon glyphicon-cog" aria-hidden="true"></span> Configure
               </button>
               <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown"
                   aria-haspopup="true" aria-expanded="false" uib-dropdown-toggle>
@@ -215,6 +211,7 @@
                 <span class="sr-only">Toggle Dropdown</span>
               </button>
               <ul class="dropdown-menu" uib-dropdown-menu role="menu">
+                <li><a href="#"><span class="glyphicon glyphicon-flash"></span> Console Output</a></li>
                 <li><a href="#"><span class="glyphicon glyphicon-flash"></span> Error Logs</a></li>
                 <li role="separator" class="divider"></li>
                 <li><a href="#"><span class="glyphicon glyphicon-refresh"></span> Restart</a></li>
@@ -229,7 +226,7 @@
 
             <div class="btn-group" uib-dropdown>
               <button type="button" class="btn btn-primary">
-                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Actions
+                <span class="glyphicon glyphicon-cog" aria-hidden="true"></span> Configure
               </button>
               <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown"
                   aria-haspopup="true" aria-expanded="false" uib-dropdown-toggle>
@@ -237,6 +234,7 @@
                 <span class="sr-only">Toggle Dropdown</span>
               </button>
               <ul class="dropdown-menu" uib-dropdown-menu role="menu">
+                <li><a href="#"><span class="glyphicon glyphicon-flash"></span> Console Output</a></li>
                 <li><a href="#"><span class="glyphicon glyphicon-flash"></span> Error Logs</a></li>
                 <li role="separator" class="divider"></li>
                 <li><a href="#"><span class="glyphicon glyphicon-refresh"></span> Restart</a></li>
