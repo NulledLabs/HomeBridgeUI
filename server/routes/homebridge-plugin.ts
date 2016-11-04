@@ -1,7 +1,6 @@
 const config = require("../../config.json");
 const homebridgeDir = config.homebridgeDir;
 const homebridgeUIDir = config.homebridgeUIDir;
-const npmCheck: any = require('npm-check');
 import { Router, Response, Request, NextFunction } from "express";
 import { verify } from "jsonwebtoken";
 import { secret } from "../config";
