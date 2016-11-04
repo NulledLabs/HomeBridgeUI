@@ -27,8 +27,8 @@ var isPublic = typeof window != "undefined";
             'rxjs': 'npm:rxjs',
             'angular2-in-memory-web-api': 'npm:angular2-in-memory-web-api',
             'angular2-jwt': 'npm:angular2-jwt/angular2-jwt.js',
-            'ng-semantic': 'npm:ng-semantic'
-            //, 'angular2-schema-form': 'npm:angular2-schema-form/dist'
+            'ng-semantic': 'npm:ng-semantic',
+            'angular2-schema-form': 'npm:angular2-schema-form/dist/'
         },
         // packages tells the System loader how to load when no filename and/or no extension
         packages: {
@@ -47,16 +47,10 @@ var isPublic = typeof window != "undefined";
                 main: 'ng-semantic',
                 defaultExtension: 'js'
             }
-            //,
-            // 'angular2-schema-form': {
-            //     main: 'index.js',
-            //     defaultExtension: 'js',
-            //     defaultJSExtensions: true,
-            //     map: {
-            //         './schema-form/model': './schema-form/model/index.js',
-            //         './schema-form/defaultwidgets': './schema-form/defaultwidgets/index.js'
-            //     }
-            // }
+            , 'angular2-schema-form': {
+                main: './index',
+                defaultExtension: 'js'
+            }
         }
     });
 })(this);

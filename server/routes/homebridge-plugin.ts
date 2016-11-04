@@ -58,7 +58,8 @@ homebridgePluginRouter.get("/result", (request: Request, response: Response) => 
                 console.log('stderr: ' + stderr);
                 console.log('exec error: ' + error);
             }
-    });
+        }
+    );
 });
 
 homebridgePluginRouter.put("/add", (request: Request, response: Response) => {
@@ -94,8 +95,8 @@ homebridgePluginRouter.put("/config", (request: Request, response: Response) => 
 });
 
 //TODO: Check first if the module has one, if not, check if we have one, if not, fail
-homebridgePluginRouter.get("/schema", (request: Request, response: Response) => {
-    var filePath = homebridgeDir + '/node_modules/' + request.query.name + '/config.schema.json';
+homebridgePluginRouter.get("/config/schema", (request: Request, response: Response) => {
+    var filePath = homebridgeDir + 'node_modules/' + request.query.name + '/config.schema.json';
     var schemaFile = fs.readFileSync(filePath,'utf8');
 
     response.send(schemaFile);

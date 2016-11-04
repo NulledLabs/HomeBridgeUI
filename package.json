@@ -49,6 +49,7 @@
     "@types/jasmine": "^2.2.33",
     "angular2-in-memory-web-api": "0.0.20",
     "angular2-jwt": "^0.1.22",
+    "angular2-schema-form": "*",
     "concurrently": "^2.2.0",
     "core-js": "^2.4.1",
     "ng-semantic": "^1.1.3",
