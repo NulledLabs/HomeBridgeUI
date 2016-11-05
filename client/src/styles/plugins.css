@@ -139,3 +139,7 @@ html, body{
 a[ng-click]{
     cursor: pointer;
 }
+
+.bold{
+    font-weight: bold;
+}

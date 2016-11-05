@@ -120,6 +120,7 @@
                                 <ui-select-choices repeat="version in vm.selectedPlugin.versions | toArray | orderBy: '-'">
                                     {{version.version}} -
                                     <small am-time-ago="vm.selectedPlugin.time[version.version]"></small>
+                                    <small ng-if="vm.installed[vm.selectedPlugin.name].version === version.version" ng-class="{bold: vm.installed[vm.selectedPlugin.name].version === version.version}"> (installed)</small>
                                 </ui-select-choices>
                             </ui-select>
 
