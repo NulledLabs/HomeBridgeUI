@@ -6,18 +6,20 @@ import { verify } from "jsonwebtoken";
 import { secret } from "../config";
 import * as fs from "fs";
 import * as homebridge from "./homebridge";
+const request = require('request');
+
 //TODO: Need to comeback and remove this
 var Plugin = require(config.homebridgeDir + "/lib/plugin.js").Plugin;
 //import * as Plugin from "../homebridge/lib/plugin.js";
 
 const homebridgePluginRouter: Router = Router();
 
-// homebridgeRouter.use((request: Request & { headers: { authorization: string } }, response: Response, next: NextFunction) => {
-//     const token = request.headers.authorization;
+// homebridgeRouter.use((req: Request & { headers: { authorization: string } }, res: Response, next: NextFunction) => {
+//     const token = req.headers.authorization;
 
 //     verify(token, secret, function(tokenError) {
 //         if (tokenError) {
-//             return response.status(403).json({
+//             return res.status(403).json({
 //                 message: "Invalid token, please Log in first"
 //             });
 //         }
@@ -26,14 +28,14 @@ const homebridgePluginRouter: Router = Router();
 //     });
 // });
 
-homebridgePluginRouter.get("/", (request: Request, response: Response) => {
+homebridgePluginRouter.get("/", (req: Request, res: Response) => {
     var configFile = fs.readFileSync(homebridgeDir + 'config.json','utf8');
 
-    response.send(configFile);
+    res.send(configFile);
 });
 
-homebridgePluginRouter.get("/add", (request: Request, response: Response) => {
-    var name = request.query.name;
+homebridgePluginRouter.get("/add", (req: Request, res: Response) => {
+    var name = req.query.name;
 
     console.log("npm install -g " + name);
     
@@ -45,20 +47,20 @@ homebridgePluginRouter.get("/add", (request: Request, response: Response) => {
             {
                 console.log(name + ':stdout: ' + stdout);
 
-                response.send(stdout);
+                res.send(stdout);
             }
             else if (error !== null)
             {
                 console.log(name + ':stderr: ' + stderr);
                 console.log(name + ':exec error: ' + error);
 
-                response.send(stderr);
+                res.send(stderr);
             }
     });
 });
 
-homebridgePluginRouter.get("/remove", (request: Request, response: Response) => {
-    var name = request.query.name;
+homebridgePluginRouter.get("/remove", (req: Request, res: Response) => {
+    var name = req.query.name;
 
     console.log("npm uninstall -g " + name);
     
@@ -70,20 +72,20 @@ homebridgePluginRouter.get("/remove", (request: Request, response: Response) => 
             {
                 console.log('stdout: ' + stdout);
 
-                response.send(stdout);
+                res.send(stdout);
             }
             else if (error !== null)
             {
                 console.log('stderr: ' + stderr);
                 console.log('exec error: ' + error);
 
-                response.send(stderr);
+                res.send(stderr);
             }
     });
 });
 
-homebridgePluginRouter.get("/update", (request: Request, response: Response) => {
-    var name = request.query.name;
+homebridgePluginRouter.get("/update", (req: Request, res: Response) => {
+    var name = req.query.name;
 
     console.log("npm update -g " + name);
     
@@ -95,19 +97,45 @@ homebridgePluginRouter.get("/update", (request: Request, response: Response) => 
             {
                 console.log('stdout: ' + stdout);
 
-                response.send(stdout);
+                res.send(stdout);
             }
             else if (error !== null)
             {
                 console.log('stderr: ' + stderr);
                 console.log('exec error: ' + error);
 
-                response.send(stderr);
+                res.send(stderr);
             }
     });
 });
 
-homebridgePluginRouter.get("/installed", (request: Request, response: Response) => {
+homebridgePluginRouter.get("/info", (req: Request, res: Response) => {
+    var name = req.query.name;
+    var url = `https://registry.npmjs.org/${name}`;
+    req.pipe(request(url)).pipe(res);
+    // console.log("npm update -g " + name);
+    
+    // var exec = require('child_process').exec, child;
+
+    // child = exec('npm update -g ' + name,
+    //     function (error, stdout, stderr) {
+    //         if (error == null)
+    //         {
+    //             console.log('stdout: ' + stdout);
+
+    //             res.send(stdout);
+    //         }
+    //         else if (error !== null)
+    //         {
+    //             console.log('stderr: ' + stderr);
+    //             console.log('exec error: ' + error);
+
+    //             res.send(stderr);
+    //         }
+    // });
+});
+
+homebridgePluginRouter.get("/installed", (req: Request, res: Response) => {
     //var configFile = fs.readFileSync('./installedPlugins.json','utf8');
     Plugin.addPluginPath(homebridgeDir + "node_modules");
     console.log("Homebridge plugin paths:" + Plugin.paths.join(", "));
@@ -122,11 +150,11 @@ homebridgePluginRouter.get("/installed", (request: Request, response: Response) 
         configFile[pjson.name] = pjson;
     }
 
-    response.json(configFile);
+    res.json(configFile);
 });
 
-homebridgePluginRouter.get("/outdated", (request: Request, response: Response) => {
-    var name = request.query.name;
+homebridgePluginRouter.get("/outdated", (req: Request, res: Response) => {
+    var name = req.query.name;
 
     console.log("npm outdated -g -json");
 
@@ -138,18 +166,18 @@ homebridgePluginRouter.get("/outdated", (request: Request, response: Response) =
             {
                 console.log('stdout: ' + stdout);
 
-                response.send(stdout);
+                res.send(stdout);
             }
             else if (error !== null) {
                 console.log('stderr: ' + stderr);
                 console.log('exec error: ' + error);
 
-                response.send(stderr);
+                res.send(stderr);
             }
     });
 });
 
-homebridgePluginRouter.get("/search", (request: Request, response: Response) => {
+homebridgePluginRouter.get("/search", (req: Request, res: Response) => {
 
     // npm.load({}, function (err, npm) {
     // npm.commands.owner(['search', 'homebridge'], function (err, res) {
@@ -158,12 +186,12 @@ homebridgePluginRouter.get("/search", (request: Request, response: Response) => 
     // });
     // var configFile = fs.readFileSync('/Users/Mike/Code/homebridge/config.json','utf8');
 
-    // response.send(configFile);
+    // res.send(configFile);
 });
 
 //TODO: More error handling
-homebridgePluginRouter.get("/result", (request: Request, response: Response) => {
-    var name = request.query.name;
+homebridgePluginRouter.get("/result", (req: Request, res: Response) => {
+    var name = req.query.name;
     
     var exec = require('child_process').exec, child;
 
@@ -171,11 +199,11 @@ homebridgePluginRouter.get("/result", (request: Request, response: Response) => 
         function (error, stdout, stderr) {
             if (error == null)
             {
-                response.send(stdout);
+                res.send(stdout);
                 console.log('stdout: ' + stdout);
             }
             else if (error !== null) {
-                response.send(stderr);
+                res.send(stderr);
                 console.log('stderr: ' + stderr);
                 console.log('exec error: ' + error);
             }
@@ -183,8 +211,8 @@ homebridgePluginRouter.get("/result", (request: Request, response: Response) => 
 });
 
 //TODO: Some sort of special handling since we're dealing with file reading
-homebridgePluginRouter.get("/config", (request: Request, response: Response) => {
-    const name = request.query.name;
+homebridgePluginRouter.get("/config", (req: Request, res: Response) => {
+    const name = req.query.name;
     //const configPath = name + '/config.ui.json';
     //const config = require(configPath)
 
@@ -195,24 +223,24 @@ homebridgePluginRouter.get("/config", (request: Request, response: Response) => 
         latestConfig = configFile[0].config || {};
     }
 
-    response.send(latestConfig);
+    res.send(latestConfig);
 });
 
 //TODO: Some sort of special handling since we're dealing with file writing
-homebridgePluginRouter.put("/config", (request: Request, response: Response) => {
-    var name = request.query.name;
-    var config = request.body.config;
+homebridgePluginRouter.put("/config", (req: Request, res: Response) => {
+    var name = req.query.name;
+    var config = req.body.config;
 
     var configSave = saveConfigSection(name, config);
 
     homebridge.buildFullConfig();
 
-    response.send(configSave);
+    res.send(configSave);
 });
 
 //TODO: Check first if the module has one, if not, check if we have one, if not, fail
-homebridgePluginRouter.get("/schema", (request: Request, response: Response) => {
-    const name = request.query.name;
+homebridgePluginRouter.get("/schema", (req: Request, res: Response) => {
+    const name = req.query.name;
     const configPath = name + '/config.ui.json';
 
     const filePath = homebridgeDir + 'node_modules/' + configPath;
@@ -229,16 +257,16 @@ homebridgePluginRouter.get("/schema", (request: Request, response: Response) => 
         schemaFile = fs.readFileSync(missingFilePath, 'utf8');
     }
 
-    response.send(schemaFile);
+    res.send(schemaFile);
 });
 
 //TODO: Error handling
-homebridgePluginRouter.get("/readme", (request: Request, response: Response) => {
-    var name = request.query.name;
+homebridgePluginRouter.get("/readme", (req: Request, res: Response) => {
+    var name = req.query.name;
     var filePath = homebridgeDir + 'node_modules/' + name + '/README.md';
     var readMeFile = fs.readFileSync(filePath, 'utf8');
 
-    response.send(readMeFile);
+    res.send(readMeFile);
 });
 
 function getConfig(name :string) :any

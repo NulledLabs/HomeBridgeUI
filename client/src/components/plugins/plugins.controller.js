@@ -16,11 +16,23 @@ class PluginsController {
 
   addPlugin(name)
   {
+    this.installing = true;
     console.log("Adding: " + name);
     this.service.addPlugin(name).then((res) => {
       console.log(name + " installed.");
       //this.installed = res.data;
-      getInstalledPlugins();
+      this.getInstalledPlugins();
+    });
+  }
+
+  removePlugin(name)
+  {
+    this.uninstalling = true;
+    console.log("Removing: " + name);
+    this.service.removePlugin(name).then((res) => {
+      console.log(name + " removed.");
+      //this.installed = res.data;
+      this.getInstalledPlugins();
     });
   }
 
@@ -28,13 +40,19 @@ class PluginsController {
   {
     this.service.getInstalledPlugins().then((res) => {
       this.installed = res.data;
+      this.installing = false;
+      this.uninstalling = false;
     });
   }
 
   getPackageInfo(name)
   {
+    this.selectedPlugin = null;
+    this.loading = true;
     this.service.getPackageInfo(name).then((res) => {
-      this.result = res.data;
+      this.loading = false;
+      this.selectedPlugin = res.data;
+      this.selectedPlugin.selectedVersion = this.selectedPlugin.versions[this.selectedPlugin['dist-tags'].latest];
     });
   }
 

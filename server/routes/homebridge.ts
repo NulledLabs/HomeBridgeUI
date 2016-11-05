@@ -65,11 +65,19 @@ homebridgeRouter.get("/status", (request: Request, response: Response) => {
     response.send(configFile);
 });
 
+
 homebridgeRouter.get("/config", (request: Request, response: Response) => {
     var filePath = homebridgeDir + 'config.json';
     var configFile = fs.readFileSync(filePath,'utf8');
 
     response.send(configFile);
+});
+
+homebridgeRouter.get("/ver", (request: Request, response: Response) => {
+    var filePath = homebridgeDir + 'package.json';
+    var configFile = fs.readFileSync(filePath,'utf8');
+    var pjson = JSON.parse(configFile);
+    response.send({ version: pjson.version });
 });
 
 homebridgeRouter.put("/config", (request: Request, response: Response) => {

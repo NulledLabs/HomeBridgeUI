@@ -237,11 +237,22 @@
               </span>
 
               <span class="btn-group" uib-dropdown ng-show='!vm.homebridge.loading && !vm.homebridge.upgrading && vm.homebridge.version !== vm.homebridge.latest && vm.homebridge.latest' title="v{{vm.homebridge.latest}} available">
-                <button type="button" ng-click="vm.forceUpdatePlugin('homebridge')" class="btn btn-default btn-xs btn-warning" >
+                <button type="button" ng-click="vm.updatePlugin(vm.homebridgeName)" class="btn btn-default btn-xs btn-warning" >
                   <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
                   <span class="sr-only">Upgrade</span>
-                  <span>v{{vm.homebridge.version}} (v{{vm.homebridge.latest}} available)</span>
+                  <span>v{{vm.homebridge.version}}</span>
                 </button>
+                <button type="button" class="btn btn-default btn-xs btn-warning dropdown-toggle" data-toggle="dropdown"
+                      aria-haspopup="true" aria-expanded="false" uib-dropdown-toggle>
+                    <span class="caret"></span>
+                    <span class="sr-only">Toggle Dropdown</span>
+                </button>
+                <ul class="dropdown-menu" uib-dropdown-menu role="menu">
+                  <li>
+                    <a href="" ng-click="vm.forceUpdatePlugin(vm.homebridgeName)">
+                    <span class="glyphicon glyphicon-flash"></span> Force Upgrade</a>
+                  </li>
+                </ul>
               </span>
 
               <span class="label label-success" ng-show='!vm.homebridge.loading && !vm.homebridge.upgrading && (vm.homebridge.version === vm.homebridge.latest || !vm.homebridge.latest)'>

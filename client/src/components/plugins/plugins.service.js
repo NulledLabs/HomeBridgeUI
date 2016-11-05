@@ -69,6 +69,26 @@ class PluginsService
     });
   }
 
+  getHomeBridgeVersion() {
+    console.log("getHomeBridgeVersion");
+
+    var url = '/homebridge/ver';
+
+    return this.$http({
+      method: 'GET',
+      url: url
+    }).success(function (data) {
+      // this callback will be called asynchronously
+      // when the response is available
+      return data.version;
+    }).
+      error(function (data, status) {
+        // called asynchronously if an error occurs
+        // or server returns response with an error status.
+        console.log(status);
+      });
+  }
+
   getInstalledPlugins() {
     console.log("getInstalledPlugin");
 
@@ -166,7 +186,7 @@ class PluginsService
   }
 
   getPackageInfo(name) {
-    var url = 'https://api.npms.io/v2/package/';
+    var url = '/homebridgeplugin/info?name=';
     return this.$http({
       method: 'GET',
       url: url + name

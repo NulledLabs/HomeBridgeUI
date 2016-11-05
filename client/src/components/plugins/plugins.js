@@ -4,11 +4,12 @@ import pluginsComponent from './plugins.component';
 import pluginsService from './plugins.service';
 import uiBootstrap from 'angular-ui-bootstrap';
 import angularMoment from 'angular-moment';
-
+import uiSelect from 'ui-select';
 let pluginsModule = angular.module('plugins', [
   uiRouter,
   uiBootstrap,
   angularMoment,
+  uiSelect
 ])
 
 .config(($stateProvider) => {
