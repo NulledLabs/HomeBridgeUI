@@ -123,6 +123,28 @@ class PluginsService
       });
   }
 
+  saveConfig(name, config)
+  {
+    console.log("addPlugin:" + name);
+
+    var url = '/homebridgeplugin/config?name=' + name;
+
+    return this.$http.put(url, config).then(
+      //success
+      (response) => {
+        // this callback will be called asynchronously
+        // when the response is available
+        //return data;
+        return true;
+      }, 
+      //error
+      (response) => {
+        // called asynchronously if an error occurs
+        // or server returns response with an error status.
+        console.log(response);
+    });
+  }
+
   getOutdatedPlugins() {
     console.log("getOutdatedPlugins");
 

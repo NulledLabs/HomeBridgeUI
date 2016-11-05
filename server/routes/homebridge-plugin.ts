@@ -5,6 +5,7 @@ import { Router, Response, Request, NextFunction } from "express";
 import { verify } from "jsonwebtoken";
 import { secret } from "../config";
 import * as fs from "fs";
+import * as homebridge from "./homebridge";
 //TODO: Need to comeback and remove this
 var Plugin = require(config.homebridgeDir + "/lib/plugin.js").Plugin;
 //import * as Plugin from "../homebridge/lib/plugin.js";
@@ -187,7 +188,7 @@ homebridgePluginRouter.get("/config", (request: Request, response: Response) => 
     //const configPath = name + '/config.ui.json';
     //const config = require(configPath)
 
-    var configFile = getConfigHistory(name);
+    var configFile :any[] = getConfig(name).configs;
     var latestConfig :any = {};
     if (configFile.length > 0)
     {
@@ -200,10 +201,13 @@ homebridgePluginRouter.get("/config", (request: Request, response: Response) => 
 //TODO: Some sort of special handling since we're dealing with file writing
 homebridgePluginRouter.put("/config", (request: Request, response: Response) => {
     var name = request.query.name;
-    var filePath = homebridgeDir + 'node_modules/' + name + '/config.json';
-    var configFile = fs.writeFileSync(filePath, 'utf8');
+    var config = request.body.config;
 
-    response.send(configFile);
+    var configSave = saveConfigSection(name, config);
+
+    homebridge.buildFullConfig();
+
+    response.send(configSave);
 });
 
 //TODO: Check first if the module has one, if not, check if we have one, if not, fail
@@ -237,9 +241,9 @@ homebridgePluginRouter.get("/readme", (request: Request, response: Response) => 
     response.send(readMeFile);
 });
 
-function getConfigHistory(name :string) :any[]
+function getConfig(name :string) :any
 {
-    const uiConfigFilePath = homebridgeUIDir + 'homebridgeconfigs/' + name + '.config.json';
+    const uiConfigFilePath = getConfigFilePath(name);
     var configFile :any = {};
     
     if (fs.existsSync(uiConfigFilePath))
@@ -253,7 +257,24 @@ function getConfigHistory(name :string) :any[]
         });
     }
 
-    return configFile.configs || {};
+    return configFile || {};
+}
+
+function saveConfigSection(name :string, configSection :string) :boolean
+{
+    const uiConfigFilePath = getConfigFilePath(name);
+    var configFile = getConfig(name);
+
+    config.configs.push({ timestamp: Date.now, config: configSection })
+
+    var configFileWrite = fs.writeFileSync(uiConfigFilePath, 'utf8');
+
+    return true;
+}
+
+function getConfigFilePath(name :string)
+{
+    return homebridgeUIDir + 'homebridgeconfigs/' + name + '.config.json';
 }
 
 export { homebridgePluginRouter }

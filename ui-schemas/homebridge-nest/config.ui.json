@@ -30,7 +30,8 @@
                         },
                         "code": {
                             "type": "string",
-                            "title": "Pin Code"
+                            "title": "Pin Code",
+                            
                         },
                         "token": {
                             "type": "string",

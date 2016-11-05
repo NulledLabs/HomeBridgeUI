@@ -2,10 +2,16 @@ import { Router, Response, Request, NextFunction } from "express";
 import { verify } from "jsonwebtoken";
 import { secret } from "../config";
 import * as fs from "fs";
+import * as os from "os";
 
 const homebridgeRouter: Router = Router();
+
 const config = require("../../config.json");
+
 const homebridgeDir = config.homebridgeDir;
+
+const homebridgeHomeDir = os.homedir() + "/.homebridge/";
+
 const homebridgeUIDir = config.homebridgeUIDir;
 const homebridgeConfigsDir = homebridgeUIDir + "homebridgeconfigs/";
 
@@ -97,6 +103,7 @@ function buildFullConfig()
 
     var configDir = homebridgeConfigsDir;
     var configFiles :string[] = fs.readdirSync(configDir);
+
     configFiles.forEach(fileName => {
         let configFile :any = require(configDir + fileName);
         let config = configFile.configs[configFile.configs.length - 1].config;
@@ -112,7 +119,10 @@ function buildFullConfig()
         }
     });
 
-    var configFile = fs.writeFileSync(homebridgeDir + "config.json", JSON.stringify(homebridgeConfig, null, '\t'), 'utf8');
+    // if (!fs.existsSync(homebridgeHomeDir.substr(0, homebridgeHomeDir.length - 1))) {
+    //     fs.mkdirSync(homebridgeHomeDir.substr(0, homebridgeHomeDir.length - 1));
+    // }
+    var configFile = fs.writeFileSync(homebridgeHomeDir + "config.json", JSON.stringify(homebridgeConfig, null, '\t'), 'utf8');
 }
 
 function merge(args :any[]) :any
@@ -127,4 +137,4 @@ function merge(args :any[]) :any
     return newObj;
 }
 
-export { homebridgeRouter }
+export { homebridgeRouter, buildFullConfig }

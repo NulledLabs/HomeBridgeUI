@@ -43,6 +43,12 @@ class FormController extends BaseFormController {
     // }
   }
 
+  onSubmit() {
+    this.pluginsService.saveConfig(this.name, this.model).then((res) => {
+
+    });
+  }
+
   getPluginSchema(name) {
     this.pluginsService.getPluginSchema(name).then((res) => {
       this.schema = res.data.schema || {};
