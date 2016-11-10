@@ -12,7 +12,7 @@ import { homebridgePluginRouter } from "./routes/homebridge-plugin";
 const app: express.Application = express();
 app.disable("x-powered-by");
 
-app.use(favicon(join(__dirname, "./dist", "favicon.ico")));
+//app.use(favicon(join(__dirname, "./dist", "favicon.ico")));
 app.use(express.static(join(__dirname, './dist')));
 
 app.use(json());

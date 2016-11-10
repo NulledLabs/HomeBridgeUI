@@ -8,11 +8,11 @@ class FormController extends BaseFormController {
     this.pluginsService = pluginsService;
 
     this.moduleName = $stateParams.moduleName;
-    this.type = $stateParams.type;
+    //this.type = $stateParams.type;
     this.name = $stateParams.name;
 
-    this.getPluginSchema(this.moduleName);
-    this.getConfig(this.type, this.name);
+    this.getModuleSchema(this.moduleName);
+    this.getConfig(this.name);
     //Loads our VM
     // if (this.type == 'homebridgeplugin')
     // {
@@ -49,7 +49,7 @@ class FormController extends BaseFormController {
     });
   }
 
-  getPluginSchema(name) {
+  getModuleSchema(name) {
     this.pluginsService.getPluginSchema(name).then((res) => {
       this.schema = res.data.schema || {};
       //this.form = res.data.form || {};
@@ -57,8 +57,8 @@ class FormController extends BaseFormController {
     });
   }
 
-  getConfig(type, name) {
-    this.pluginsService.getConfig(type, name).then((res) => {
+  getConfig(name) {
+    this.pluginsService.getConfig(name).then((res) => {
       this.model = res.data || {};
     });
   }

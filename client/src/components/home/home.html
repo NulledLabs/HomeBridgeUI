@@ -9,8 +9,8 @@
 <main>
   <div class="container">
     <h1>Dashboard</h1>
-
     <div>
+<!--
         <div class="btn-group" uib-dropdown>
           <button type="button" class="btn btn-primary">
             <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Add
@@ -63,7 +63,8 @@
             </div>
 
         </div>
-        
+        -->
+        <!--
         <div>
           <h2>Platforms</h2>
 
@@ -98,7 +99,7 @@
             </div>
           </div>
         </div>
-
+-->
         <div>
           <h2>Plugins</h2>
           <button type="button" class="btn" ui-sref="plugins">
@@ -179,6 +180,11 @@
                       <span class="sr-only">Toggle Dropdown</span>
                     </button>
                     <ul class="dropdown-menu" uib-dropdown-menu role="menu">
+                      <li>
+                        <a ui-sref="forms({moduleName: pluginName, name: pluginName})">
+                          <span class="glyphicon glyphicon-cog" aria-hidden="true"></span> Configure
+                        </a>
+                      </li>
                       <li><a href="#"><span class="glyphicon glyphicon-flash"></span> Error Logs</a></li>
                       <li role="separator" class="divider"></li>
                       <li><a href="#" ng-click="vm.removePlugin(pluginName)"><span class="glyphicon glyphicon-trash"></span> Remove</a></li>
@@ -208,7 +214,7 @@
             <span class="sr-only">Running</span>
 
             <div class="btn-group" uib-dropdown>
-              <button type="button" class="btn btn-primary">
+              <button type="button" class="btn btn-primary" ui-sref="forms({moduleName: 'homebridge', name: 'homebridge'})">
                 <span class="glyphicon glyphicon-cog" aria-hidden="true"></span> Configure
               </button>
               <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown"
@@ -258,7 +264,7 @@
             <span class="sr-only">Running</span>
 
             <div class="btn-group" uib-dropdown>
-              <button type="button" class="btn btn-primary">
+              <button type="button" class="btn btn-primary" ui-sref="forms({moduleName: 'homebridgeui', name: 'homebridgeui'})">
                 <span class="glyphicon glyphicon-cog" aria-hidden="true"></span> Configure
               </button>
               <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown"
