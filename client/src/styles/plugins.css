@@ -71,7 +71,7 @@
     overflow-y: scroll;
 }
 
-.plugin-details.latest{
+.plugin-details.split{
     padding-bottom: 10px;
     margin-bottom: 10px;
     border-bottom: lightgray 1px solid;
@@ -83,6 +83,10 @@
     margin-bottom: 15px;
 }
 
+.plugin-details.readme{
+    padding-left: 15px;
+    padding-right: 15px; 
+}
 .plugin-details-label{
     font-weight: bold;
 }

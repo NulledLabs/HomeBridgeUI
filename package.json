@@ -40,6 +40,7 @@
     "@types/serve-favicon": "^2.2.27",
     "angular": "^1.5.8",
     "angular-jwt": "^0.1.7",
+    "angular-marked": "^1.2.2",
     "angular-moment": "~1.0.0",
     "angular-sanitize": "^1.5.8",
     "angular-schema-form": "^0.8.13",

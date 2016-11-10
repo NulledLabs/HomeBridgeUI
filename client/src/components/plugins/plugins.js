@@ -5,11 +5,14 @@ import pluginsService from './plugins.service';
 import uiBootstrap from 'angular-ui-bootstrap';
 import angularMoment from 'angular-moment';
 import uiSelect from 'ui-select';
+import hcMarked from 'angular-marked';
+
 let pluginsModule = angular.module('plugins', [
   uiRouter,
   uiBootstrap,
   angularMoment,
-  uiSelect
+  uiSelect,
+  hcMarked
 ])
 
 .config(($stateProvider) => {
