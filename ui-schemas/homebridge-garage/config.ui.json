@@ -1,0 +1,49 @@
+{
+    "type": "accessory",
+    "registeredAs": "MyGarageDoor2",
+    "schema":
+    {
+        "type": "object",
+        "properties": {
+            "accessory":{
+                "type": "hidden",
+                "value": "MyGarageDoor2"
+            },
+            "name": {
+                "type": "string",
+                "title": "Name"
+            },
+            "description": {
+                "type": "string",
+                "title": "Description"
+            },
+            "id": {
+                "type": "string",
+                "title": "Serial Number"
+            },
+            "buttonPin": {
+                "type": "integer",
+                "title": "Button Pin"
+            },
+            "openedPin": {
+                "type": "integer",
+                "title": "Opened Pin"
+            },
+            "closedPin": {
+                "type": "integer",
+                "title": "Closed Pin"
+            },
+            "openNotificationThreshold": {
+                "type": "integer",
+                "title": "Open Notification Threshold"
+            }
+        },
+        "required": [
+            "name",
+            "id",
+            "buttonPin",
+            "openedPin",
+            "closedPin"
+        ]
+    }
+}

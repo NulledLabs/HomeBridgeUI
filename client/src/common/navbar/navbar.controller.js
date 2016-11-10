@@ -6,7 +6,7 @@ class NavbarController {
   }
   logout() {
     localStorage.removeItem("JWT");
-    $rootScope.isAuthenticated = false;
+    this.$rootScope.isAuthenticated = false;
     this.$state.go('login');
   }
 }

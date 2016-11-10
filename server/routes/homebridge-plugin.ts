@@ -218,7 +218,7 @@ homebridgePluginRouter.get("/config", (req: Request, res: Response) => {
 
     var configFile :any[] = getConfig(name).configs;
     var latestConfig :any = {};
-    if (configFile.length > 0)
+    if (configFile && configFile.length > 0)
     {
         latestConfig = configFile[0].config || {};
     }
