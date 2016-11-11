@@ -229,7 +229,7 @@ homebridgePluginRouter.get("/config", (req: Request, res: Response) => {
 //TODO: Some sort of special handling since we're dealing with file writing
 homebridgePluginRouter.put("/config", (req: Request, res: Response) => {
     var name = req.query.name;
-    var config = req.body.config;
+    var config = req.body;
 
     var configSave = saveConfigSection(name, config);
 
@@ -243,6 +243,8 @@ homebridgePluginRouter.get("/schema", (req: Request, res: Response) => {
     const name = req.query.name;
     const configPath = name + '/config.ui.json';
 
+    // TODO: change this to the global node_modules folder.  
+    //       It's not a dependency of homebridge, it's a peer-dependency...
     const filePath = homebridgeDir + 'node_modules/' + configPath;
     const missingFilePath = homebridgeUIDir + "ui-schemas/" + configPath;
     var schemaFile = "{}";

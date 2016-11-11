@@ -1,7 +1,7 @@
 <navbar></navbar>
 <div class="container">
     <div class="plugin-main row">
-        <div class="plugin-left-pane col-sm-4 col-xs-12" ng-class="{'hidden-xs': vm.selectedPlugin}">
+        <div class="plugin-left-pane col-sm-5 col-xs-12" ng-class="{'hidden-xs': vm.selectedPlugin}">
 
             <!-- Search Form -->
             <form role="form" class="plugin-search-form" ng-submit="vm.onSubmit()">
@@ -42,10 +42,10 @@
                         <span class="glyphicon glyphicon-ok-sign" style="color:green;" ng-if="vm.installed[value.package.name] && value.package.version === vm.installed[value.package.name].version"></span>
                         <span class="glyphicon glyphicon-plus-sign" style="color:dodgerblue;" ng-if="!vm.installed[value.package.name]"></span>
                         <span class="glyphicon glyphicon-circle-arrow-up" style="color:orange;" ng-if="vm.installed[value.package.name] && value.package.version !== vm.installed[value.package.name].version"></span>                        {{value.package.name}}
+                        <span class="plugin-version">({{value.package.version}})</span>
                     </div>
                     <div class="plugin-description">{{value.package.description}}</div>
                     <div class="plugin-updated">
-                        <span>{{value.package.version}}</span>
                         <span>updated</span>
                         <span am-time-ago="value.package.date"></span>
                         <span>by <strong>{{value.package.publisher.username}}</strong></span>
@@ -58,7 +58,7 @@
 
         <!--Begin plugin info-->
 
-        <div class="plugin-right-pane col-sm-8" ng-class="{'hidden-xs': !vm.selectedPlugin}">
+        <div class="plugin-right-pane col-sm-6 col-sm-offset-1" ng-class="{'hidden-xs': !vm.selectedPlugin}">
             <div class="plugin-searching" ng-if="vm.loading">
                 <span class="glyphicon glyphicon-refresh spinning"></span> Loading...
             </div>
@@ -92,7 +92,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="plugin-details latest row split">
+                <div class="plugin-details latest row">
                     <div class="plugin-details-label col-xs-3">Version:</div>
                     <div class="col-xs-9">
                         <!--<div class="btn-group" uib-dropdown dropdown-append-to-body>
@@ -186,12 +186,11 @@
                     <div class="plugin-details-label col-xs-3">Home Page:</div>
                     <div class="col-xs-9"><a href="{{vm.selectedPlugin.selectedVersion.homepage}}" target="_blank">{{vm.selectedPlugin.selectedVersion.homepage}}</a></div>
                 </div>
-                <div class="plugin-details link row split">
+                <div class="plugin-details link row">
                     <div class="plugin-details-label col-xs-3">Bugs:</div>
                     <div class="col-xs-9"><a href="{{vm.selectedPlugin.selectedVersion.bugs.url}}" target="_blank">{{vm.selectedPlugin.selectedVersion.bugs.url}}</a></div>
                 </div>
-                <div class="plugin-details readme row" marked="vm.selectedPlugin.readme">
-                </div>
+
             </div>
         </div>
     </div>

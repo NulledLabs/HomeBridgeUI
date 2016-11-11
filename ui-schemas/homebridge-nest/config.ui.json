@@ -1,53 +1,49 @@
 {
     "type": "homebridge-plugin",
     "schema": {
+
         "type": "object",
         "properties": {
-            "name": {
-                "type": "string",
-                "title": "Name"
+            "platform": {
+                "type": "hidden",
+                "title": "Platform",
+                "default": "Nest",
+                "value": "Nest"
             },
-            "platforms": {
-                "title": "Platforms",
-                "type": "array",
-                "maxItems": 1,
-                "items": {
-                    "type": "object",
-                    "properties": {
-                        "platform": {
-                            "type": "hidden",
-                            "title": "Platform",
-                            "default": "Nest",
-                            "value": "Nest"
-                        },
-                        "clientId": {
-                            "type": "string",
-                            "title": "Client ID"
-                        },
-                        "clientSecret": {
-                            "type": "string",
-                            "title": "Client Secret"
-                        },
-                        "code": {
-                            "type": "string",
-                            "title": "Pin Code"
-                            
-                        },
-                        "token": {
-                            "type": "string",
-                            "title": "Token"
-                        }
-                    }
-                }
+            "clientId": {
+                "type": "string",
+                "title": "Client ID"
+            },
+            "clientSecret": {
+                "type": "string",
+                "title": "Client Secret"
+            },
+            "code": {
+                "type": "string",
+                "title": "Pin Code"
+            },
+            "token": {
+                "type": "string",
+                "title": "Token"
+            },
+            "username":{
+                "type":"string",
+                "title": "Username",
+                "description": "Legacy API"
+            },
+            "password":{
+                "type":"string",
+                "title": "Password",
+                "description": "Legacy API"
             }
+
         },
         "required": [
-            "name",
             "clientId",
             "clientSecret",
             "token"
         ]
     },
-    "form": {},
+    "form": [],
     "model": {}
 }
