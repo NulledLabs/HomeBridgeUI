@@ -1,3 +1,4 @@
+
 <navbar></navbar>
 <div class="container">
     <div class="plugin-main row">
@@ -42,10 +43,10 @@
                         <span class="glyphicon glyphicon-ok-sign" style="color:green;" ng-if="vm.installed[value.package.name] && value.package.version === vm.installed[value.package.name].version"></span>
                         <span class="glyphicon glyphicon-plus-sign" style="color:dodgerblue;" ng-if="!vm.installed[value.package.name]"></span>
                         <span class="glyphicon glyphicon-circle-arrow-up" style="color:orange;" ng-if="vm.installed[value.package.name] && value.package.version !== vm.installed[value.package.name].version"></span>                        {{value.package.name}}
-                        <span class="plugin-version">({{value.package.version}})</span>
                     </div>
                     <div class="plugin-description">{{value.package.description}}</div>
                     <div class="plugin-updated">
+                        <span>{{value.package.version}}</span>
                         <span>updated</span>
                         <span am-time-ago="value.package.date"></span>
                         <span>by <strong>{{value.package.publisher.username}}</strong></span>
@@ -92,7 +93,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="plugin-details latest row">
+                <div class="plugin-details latest row split">
                     <div class="plugin-details-label col-xs-3">Version:</div>
                     <div class="col-xs-9">
                         <!--<div class="btn-group" uib-dropdown dropdown-append-to-body>
@@ -192,7 +193,6 @@
                 </div>
                 <div class="plugin-details readme row" marked="vm.selectedPlugin.readme">
                 </div>
-
             </div>
         </div>
     </div>
