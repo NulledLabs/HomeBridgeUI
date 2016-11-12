@@ -1,7 +1,7 @@
 <navbar></navbar>
 <div class="container">
     <div class="plugin-main row">
-        <div class="plugin-left-pane col-sm-5 col-xs-12" ng-class="{'hidden-xs': vm.selectedPlugin}">
+        <div class="plugin-left-pane col-sm-4 col-xs-12" ng-class="{'hidden-xs': vm.selectedPlugin}">
 
             <!-- Search Form -->
             <form role="form" class="plugin-search-form" ng-submit="vm.onSubmit()">
@@ -58,7 +58,7 @@
 
         <!--Begin plugin info-->
 
-        <div class="plugin-right-pane col-sm-6 col-sm-offset-1" ng-class="{'hidden-xs': !vm.selectedPlugin}">
+        <div class="plugin-right-pane col-sm-8" ng-class="{'hidden-xs': !vm.selectedPlugin}">
             <div class="plugin-searching" ng-if="vm.loading">
                 <span class="glyphicon glyphicon-refresh spinning"></span> Loading...
             </div>
@@ -186,9 +186,11 @@
                     <div class="plugin-details-label col-xs-3">Home Page:</div>
                     <div class="col-xs-9"><a href="{{vm.selectedPlugin.selectedVersion.homepage}}" target="_blank">{{vm.selectedPlugin.selectedVersion.homepage}}</a></div>
                 </div>
-                <div class="plugin-details link row">
+                <div class="plugin-details link row split">
                     <div class="plugin-details-label col-xs-3">Bugs:</div>
                     <div class="col-xs-9"><a href="{{vm.selectedPlugin.selectedVersion.bugs.url}}" target="_blank">{{vm.selectedPlugin.selectedVersion.bugs.url}}</a></div>
+                </div>
+                <div class="plugin-details readme row" marked="vm.selectedPlugin.readme">
                 </div>
 
             </div>
