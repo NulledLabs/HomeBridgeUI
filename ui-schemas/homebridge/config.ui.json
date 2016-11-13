@@ -4,13 +4,20 @@
     {
         "type": "object",
         "properties": {
-            "name": {
+            "description": {
                 "type": "string",
-                "title": "Name"
+                "title": "Description",
+                "default": "This is an example configuration file with one fake accessory and one fake platform. You can use this as a template for creating your own configuration file containing devices you actually own."
             },
             "bridge" :
             {
                 "type": "object",
+                "required": [
+                    "name",
+                    "username",
+                    "port",
+                    "pin"
+                ],
                 "properties": {
                     "name": {
                         "type": "string",
@@ -33,13 +40,16 @@
                         "default" : "031-45-154"
                     }
                 }
-            },
-           
-            "description": {
-                "type": "string",
-                "title": "Description",
-                "default": "This is an example configuration file with one fake accessory and one fake platform. You can use this as a template for creating your own configuration file containing devices you actually own."
-            }
+            }           
         }
-    }
+    },
+    "form":[
+        "bridge.name",
+        "description",
+        "bridge.username",
+        "bridge.port",
+        "bridge.pin"
+    ]
+
+    
 }

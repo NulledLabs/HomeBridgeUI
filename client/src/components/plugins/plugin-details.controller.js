@@ -100,17 +100,18 @@ class PluginDetailsController {
         //   };
         //   this.form.push(p);
         // }
-        this.form.push(
+      }
+      else {
+        this.form = res.data.form;
+      }
+      this.form.push(
           {
             "type": "submit",
             "title": "Save Config",
             "horizontalHtmlClass": "col-lg-9 col-lg-offset-3",
             "htmlClass": "form-horizontal"
           });
-      }
-      else {
-        this.form = res.data.form;
-      }
+
       // this.model = res.data.model || {};
     });
   }
