@@ -10,10 +10,18 @@ import { homebridgeRouter } from "./routes/homebridge";
 import { homebridgePluginRouter } from "./routes/homebridge-plugin";
 
 const app: express.Application = express();
+const server = require('http').Server(app);
+const io = require('socket.io')(server);
+
 app.disable("x-powered-by");
 
 //app.use(favicon(join(__dirname, "./dist", "favicon.ico")));
 app.use(express.static(join(__dirname, './dist')));
+
+app.use(function(req, res, next){
+  (<any>res).io = io;
+  next();
+});
 
 app.use(json());
 app.use(urlencoded({ extended: true }));
@@ -59,4 +67,4 @@ app.use(function(err: any, req: express.Request, res: express.Response, next: ex
     });
 });
 
-export { app }
+export { app, server }
