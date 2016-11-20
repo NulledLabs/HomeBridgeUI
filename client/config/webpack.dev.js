@@ -18,6 +18,12 @@ module.exports = webpackMerge(commonConfig, {
     },{
       path: '/homebridgeplugin',
       target: 'http://localhost:4000'
+    },{
+      path: '/npm',
+      target: 'http://localhost:4000'
+    },{
+      path: '/socket.io',
+      target: 'http://localhost:4000'
     }]
   }
 });

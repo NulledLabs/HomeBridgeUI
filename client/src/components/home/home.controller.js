@@ -1,5 +1,5 @@
 class HomeController {
-  constructor(pluginsService) {
+  constructor(pluginsService, mySocket, $rootScope) {
     this.name = 'home';
 
     this.service = pluginsService;
@@ -8,6 +8,7 @@ class HomeController {
     this.outdated = {};
     this.outdatedLoaded = false;
     this.homebridge = {};
+    this.logs = [];
     this.accessories = {
       "Left Garage Door": {
         "moduleName": "homebridge-garage",
@@ -30,8 +31,26 @@ class HomeController {
       }
     };
 
+    mySocket.forward('log', $rootScope);
+    $rootScope.$on('socket:log', function($event, log){
+      this.logs.push(log);
+    }.bind(this));
     this.getInstalledPlugins();
     // this.getOutdatedPlugins();
+  }
+
+  startHomebridge(){
+    console.log("start homebridge - HomeController");
+    this.service.startHomebridge().then((res) => {
+      console.log(res.data);
+    })
+  }
+  
+  stopHomebridge(){
+    console.log("stop homebridge - HomeController");    
+    this.service.stopHomebridge().then((res) => {
+      console.log(res.data);
+    })
   }
 
   addPlugin(name)
@@ -130,7 +149,6 @@ class HomeController {
       this.outdatedLoaded = true;
     });
   }
-
 }
 
 export default HomeController;

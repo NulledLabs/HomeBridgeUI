@@ -232,7 +232,8 @@
                   <li><a href="#"><span class="glyphicon glyphicon-flash"></span> Console Output</a></li>
                   <li><a href="#"><span class="glyphicon glyphicon-flash"></span> Error Logs</a></li>
                   <li role="separator" class="divider"></li>
-                  <li><a href="#"><span class="glyphicon glyphicon-refresh"></span> Restart</a></li>
+                  <li ng-click="vm.startHomebridge()"><a href="#"><span class="glyphicon glyphicon-refresh"></span> Start</a></li>
+                  <li ng-click="vm.stopHomebridge()"><a href="#"><span class="glyphicon glyphicon-refresh"></span> Stop</a></li>
                 </ul>
               </div>
 
@@ -344,20 +345,25 @@
 
     <div>
       <h2>Logs</h2>
-      <textarea style="background-color: #fff; width: 500px; height: 200px; overflow: scroll;">
-          Bullshit...
+      <table>
+        <thead>
+          <tr>
+            <th>Date</th>
+            <th>Level</th>
+            <th>Plugin</th>
+            <th>Message</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat="log in vm.logs">
+            <td>{{log.date}}</td>
+            <td>{{log.level}}</td>
+            <td>{{log.prefix}}</td>
+            <td><pre>{{log.message}}</pre></td>
+          </tr>
+        </tbody>
 
-          Bullshit...
-
-          Bullshit...
-
-          Bullshit...
-
-          Bullshit...
-
-          Bullshit...
-          
-        </textarea>
+      </table>
     </div>
   </div>
 </main>

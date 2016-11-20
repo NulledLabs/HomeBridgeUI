@@ -1,11 +1,72 @@
 
-class PluginsService
-{
-  constructor($http)
-  {
+class PluginsService {
+  constructor($http) {
     this.$http = $http;
   }
 
+
+  startHomebridge() {
+    console.log("start homebridge");
+
+    var url = '/homebridge/start';
+
+    return this.$http.post(url, {}).then(
+      //success
+      (response) => {
+        // this callback will be called asynchronously
+        // when the response is available
+        //return data;
+        return true;
+      }, 
+      //error
+      (response) => {
+        // called asynchronously if an error occurs
+        // or server returns response with an error status.
+        console.log(response);
+    });
+  }
+  stopHomebridge() {
+    console.log("stop homebridge");
+
+    var url = '/homebridge/stop';
+
+    return this.$http.post(url, {}).then(
+      //success
+      (response) => {
+        // this callback will be called asynchronously
+        // when the response is available
+        //return data;
+        return true;
+      }, 
+      //error
+      (response) => {
+        // called asynchronously if an error occurs
+        // or server returns response with an error status.
+        console.log(response);
+    });
+  }
+
+
+  addPlugin2(name) {
+    console.log("addPlugin2:" + name);
+
+    var url = '/npm';
+
+    return this.$http.post(url, JSON.stringify({ name, action: 'install' })).then(
+      //success
+      (response) => {
+        // this callback will be called asynchronously
+        // when the response is available
+        //return data;
+        return true;
+      },
+      //error
+      (response) => {
+        // called asynchronously if an error occurs
+        // or server returns response with an error status.
+        console.log(response);
+      });
+  }
   addPlugin(name) {
     console.log("addPlugin:" + name);
 
@@ -39,13 +100,13 @@ class PluginsService
         // when the response is available
         //return data;
         return true;
-      }, 
+      },
       //error
       (response) => {
         // called asynchronously if an error occurs
         // or server returns response with an error status.
         console.log(response);
-    });
+      });
   }
 
   updatePlugin(name) {
@@ -60,13 +121,13 @@ class PluginsService
         // when the response is available
         //return data;
         return true;
-      }, 
+      },
       //error
       (response) => {
         // called asynchronously if an error occurs
         // or server returns response with an error status.
         console.log(response);
-    });
+      });
   }
 
   getHomeBridgeVersion() {
@@ -143,8 +204,7 @@ class PluginsService
       });
   }
 
-  saveConfig(name, config)
-  {
+  saveConfig(name, config) {
     console.log("addPlugin:" + name);
 
     var url = '/homebridgeplugin/config?name=' + name;
@@ -156,13 +216,13 @@ class PluginsService
         // when the response is available
         //return data;
         return true;
-      }, 
+      },
       //error
       (response) => {
         // called asynchronously if an error occurs
         // or server returns response with an error status.
         console.log(response);
-    });
+      });
   }
 
   getOutdatedPlugins() {

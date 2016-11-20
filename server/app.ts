@@ -8,11 +8,14 @@ import { protectedRouter } from "./routes/protected";
 import { metalRouter } from "./routes/metal";
 import { homebridgeRouter } from "./routes/homebridge";
 import { homebridgePluginRouter } from "./routes/homebridge-plugin";
+import { npmRouter } from "./routes/npm";
 
 const app: express.Application = express();
 const server = require('http').Server(app);
 const io = require('socket.io')(server);
-
+io.on('connection', function(socket){
+    socket.emit('cmd', 'hi');
+});
 app.disable("x-powered-by");
 
 //app.use(favicon(join(__dirname, "./dist", "favicon.ico")));
@@ -33,6 +36,7 @@ app.use("/client", express.static(join(__dirname, '../client')));
 app.use("/metal", metalRouter);
 app.use("/homebridge", homebridgeRouter);
 app.use("/homebridgeplugin", homebridgePluginRouter);
+app.use("/npm", npmRouter);
 
 // error handlers
 // development error handler

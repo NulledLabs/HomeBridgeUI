@@ -9,11 +9,15 @@ import Components from './components/components';
 import './styles.scss';
 import '../../node_modules/ui-select/dist/select.min.css'
 import jwtHelper from 'angular-jwt';
+import * as io from 'socket.io-client';
+import 'angular-socket-io';
+
 angular.module('myApp', [
   uiRouter,
   Common.name,
   Components.name,
   jwtHelper,
+  'btford.socket-io',
 ])
 .config(function Config($httpProvider, jwtInterceptorProvider, jwtOptionsProvider) {
   console.log("config", $httpProvider, jwtInterceptorProvider, jwtOptionsProvider);
@@ -58,6 +62,8 @@ angular.module('myApp', [
   }
   updateSize();
   angular.element($window).on('resize', updateSize);
+
+
 })
 .filter('toArray', function () {
   return function (obj, addKey) {
@@ -76,7 +82,13 @@ angular.module('myApp', [
     }
   };
 })
+.factory('mySocket', function (socketFactory) {
+  console.log(socketFactory);
+  return socketFactory({ioSocket: io.connect()});
+})
 .directive('app', AppComponent);
+
+
 // Before uncommenting another template, ensure you wrap the field div with a div of class="{{form.horizontalHtmlClass}}".
 // This isn't necessesarily requred for all types, but needed to control the width size of the input field since control-form class automataically sets 100% width overwriting any col-size-# bootstrap classes.
 function setupFormTemplateCache($templateCache) {
