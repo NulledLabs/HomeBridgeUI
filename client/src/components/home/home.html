@@ -345,25 +345,18 @@
 
     <div>
       <h2>Logs</h2>
-      <table>
-        <thead>
-          <tr>
-            <th>Date</th>
-            <th>Level</th>
-            <th>Plugin</th>
-            <th>Message</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr ng-repeat="log in vm.logs">
-            <td>{{log.date}}</td>
-            <td>{{log.level}}</td>
-            <td>{{log.prefix}}</td>
-            <td><pre>{{log.message}}</pre></td>
-          </tr>
-        </tbody>
-
-      </table>
+      <div class="logheader">
+        <div class="date">Date</div>
+        <div class="plugin">Plugin</div>
+        <div class="message">Message</div>
+      </div>
+      <div class="logrowcontainer" scroll-glue>
+        <div class="logrow {{log.level}}" ng-repeat="log in vm.logs">
+          <div class="date">{{log.date | amDateFormat:'MMM Do YYYY, h:mm:ssa'}}</div>
+          <div class="plugin">{{log.prefix}}</div>
+          <div class="message">{{log.message}}</div>
+        </div>
+      </div>
     </div>
   </div>
 </main>

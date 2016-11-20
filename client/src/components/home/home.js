@@ -2,9 +2,10 @@ import angular from 'angular';
 import uiRouter from 'angular-ui-router';
 import homeComponent from './home.component';
 import pluginsService from './../plugins/plugins.service';
-
+import 'angularjs-scroll-glue';
 let homeModule = angular.module('home', [
-  uiRouter
+  uiRouter,
+  'luegg.directives'
 ])
 
 .config(($stateProvider, $urlRouterProvider) => {

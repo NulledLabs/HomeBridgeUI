@@ -123,6 +123,7 @@ html, body{
     to { -webkit-transform: rotate(360deg); }
 }
 
+.logrowcontainer::-webkit-scrollbar,
 .plugin-right-pane::-webkit-scrollbar,
 .plugin-search-results::-webkit-scrollbar {
     width: 0.5em;
@@ -133,6 +134,7 @@ html, body{
     -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
 }
  */
+.logrowcontainer::-webkit-scrollbar-thumb,
 .plugin-right-pane::-webkit-scrollbar-thumb,
 .plugin-search-results::-webkit-scrollbar-thumb {
   background-color: gray;
@@ -146,4 +148,70 @@ a[ng-click]{
 
 .bold{
     font-weight: bold;
+}
+
+.date{
+    width: 200px;
+}
+.level{
+    width: 50px;
+}
+.plugin{
+    width: 175px;
+}
+.message{
+    width: 500px;
+}
+
+.logheader div{
+    display: inline-block;
+    font-weight: bold;
+}
+
+.logrow.info{
+    color: darkslateblue;
+}
+.logrow.error{
+    color: darkred;
+    font-weight: bold;
+}
+.logrow.pin .message{
+    color: black;
+    background: white;
+    width: 200px;
+    text-align: center;
+    vertical-align: middle;
+    height: 50px;
+}
+/*.logheader .date{
+
+}
+.logheader .level{
+
+}
+.logheader .plugin{
+
+}
+.logheader .message{
+
+}*/
+.logrowcontainer{
+    height: 300px;
+    overflow-y: auto;
+
+}
+.logrow div{
+    display: inline-block;
+}
+.logrow .date{
+
+}
+.logrow .level{
+
+}
+.logrow .plugin{
+
+}
+.logrow .message{
+    font-family: Courier New, Courier, monospace
 }

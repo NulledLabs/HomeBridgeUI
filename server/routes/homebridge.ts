@@ -35,17 +35,16 @@ function startHomebridge() {
       // wasn't a json line...  
     }
   });
-  // var errreader = readline.createInterface(homebridge_process.stderr, homebridge_process.stdin);
-  // errreader.on('line', function (data) {
-  //   console.log("errreader.line:", data);
-  //   io.emit('log', {
-  //     "id": cmd.id,
-  //     "action": cmd.action,
-  //     "package": cmd.package,
-  //     "message": data,
-  //     "numTasks": numTasks
-  //   });
-  // });
+  var errreader = readline.createInterface(homebridge_process.stderr, homebridge_process.stdin);
+  errreader.on('line', function (data) {
+    console.log("errreader.line:", data);
+    io.emit('log', {
+      "date": new Date(),
+      "level": "error",
+      "package": "",
+      "message": data
+    });
+  });
   homebridge_process.on('error', function (err) {
     io.emit('log', {
       date: new Date(),
@@ -59,7 +58,7 @@ function startHomebridge() {
   homebridge_process.on('exit', function (code) {
     io.emit('log', {
       date: new Date(),
-      level: "info",
+      level: "error",
       prefix: '',
       message: 'HomeBridge process exited with code: ' + code
     });
