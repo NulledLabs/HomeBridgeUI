@@ -1,3 +1,7 @@
-interface Arch {
-    Reboot(): boolean;
+class Arch
+{
+    GetArch() :IArch
+    {
+        return new MacOs();
+    }
 }

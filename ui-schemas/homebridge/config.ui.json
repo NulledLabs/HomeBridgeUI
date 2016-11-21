@@ -1,0 +1,55 @@
+{
+    "type": "homebridge",
+    "schema":
+    {
+        "type": "object",
+        "properties": {
+            "description": {
+                "type": "string",
+                "title": "Description",
+                "default": "This is an example configuration file with one fake accessory and one fake platform. You can use this as a template for creating your own configuration file containing devices you actually own."
+            },
+            "bridge" :
+            {
+                "type": "object",
+                "required": [
+                    "name",
+                    "username",
+                    "port",
+                    "pin"
+                ],
+                "properties": {
+                    "name": {
+                        "type": "string",
+                        "title": "Name",
+                        "default": "Homebridge"
+                    },
+                    "username": {
+                        "type": "string",
+                        "title": "Username",
+                        "default": "CC:22:3D:E3:CE:30"
+                    },
+                    "port": {
+                        "type": "integer",
+                        "title": "Port",
+                        "default": 51826
+                    },
+                    "pin": {
+                        "type": "string",
+                        "title": "Pin",
+                        "default" : "031-45-154"
+                    }
+                }
+            }           
+        }
+    },
+    "form":[
+        "bridge.name",
+        "description",
+        "bridge.username",
+        "bridge.port",
+        "bridge.pin"
+    ]
+
+    
+}

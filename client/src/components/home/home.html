@@ -1,0 +1,362 @@
+<navbar></navbar>
+<header>
+  <script type="text/javascript">
+    $(document).ready(function() {
+      $(".dropdown-toggle").dropdown();
+    });
+  </script>
+</header>
+<main>
+  <div class="container">
+    <h1>Dashboard</h1>
+    <div>
+      <!--
+        <div class="btn-group" uib-dropdown>
+          <button type="button" class="btn btn-primary">
+            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Add
+          </button>
+          <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown"
+              aria-haspopup="true" aria-expanded="false" uib-dropdown-toggle>
+            <span class="caret"></span>
+            <span class="sr-only">Toggle Dropdown</span>
+          </button>
+          <ul class="dropdown-menu" uib-dropdown-menu role="menu">
+            <li ng-repeat="(pluginName, plugin) in vm.installed">
+              <a ui-sref="forms({moduleName: pluginName, name: ''})">{{pluginName}}</a>
+            </li>
+            <li role="separator" class="divider"></li>
+            <li><a href="#">Separated link</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h2>Accessories</h2>
+
+          <div class="accessories row">
+            <div ng-repeat="(accessoryName, accessory) in vm.accessories" class="col-lg-4">
+              <div class="panel panel-default">
+                <div class="panel-heading">
+                  <h3 class="panel-title">{{accessoryName}} ({{accessory.moduleName}})</h3>
+                </div>
+
+                <div class="panel-body">
+                  <p>{{accessory.description}}</p>
+
+                  <div class="btn-group" uib-dropdown>
+                    <button type="button" class="btn btn-default btn-primary" ui-sref="forms({moduleName: accessory.moduleName, name: accessoryName})">
+                      <span class="glyphicon glyphicon-cog" aria-hidden="true"></span> Configure
+                    </button>
+                    <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown"
+                        aria-haspopup="true" aria-expanded="false" uib-dropdown-toggle>
+                      <span class="caret"></span>
+                      <span class="sr-only">Toggle Dropdown</span>
+                    </button>
+                    <ul class="dropdown-menu" uib-dropdown-menu role="menu">
+                      <li><a href="#"><span class="glyphicon glyphicon-flash"></span> Error Logs</a></li>
+                      <li role="separator" class="divider"></li>
+                      <li><a href="#" ng-click="vm.deactivateAccessory(accessoryName)"><span class="glyphicon glyphicon-minus-sign"></span> Deactivate</a></li>
+                      <li><a href="#" ng-click="vm.removeAccessory(accessoryName)"><span class="glyphicon glyphicon-trash"></span> Remove</a></li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+        </div>
+        -->
+      <!--
+        <div>
+          <h2>Platforms</h2>
+
+          <div class="platforms row">
+            <div ng-repeat="(platformName, platform) in vm.platforms" class="col-lg-4">
+              <div class="panel panel-default">
+                <div class="panel-heading">
+                  <h3 class="panel-title">{{platformName}} ({{platform.moduleName}})</h3>
+                </div>
+
+                <div class="panel-body">
+                  <p>{{platform.description}}</p>
+
+                  <div class="btn-group" uib-dropdown>
+                    <button type="button" class="btn btn-default btn-primary" ui-sref="forms({moduleName: platform.moduleName, name: platformName})">
+                      <span class="glyphicon glyphicon-cog" aria-hidden="true"></span> Configure
+                    </button>
+                    <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown"
+                        aria-haspopup="true" aria-expanded="false" uib-dropdown-toggle>
+                      <span class="caret"></span>
+                      <span class="sr-only">Toggle Dropdown</span>
+                    </button>
+                    <ul class="dropdown-menu" uib-dropdown-menu role="menu">
+                      <li><a href="#"><span class="glyphicon glyphicon-flash"></span> Error Logs</a></li>
+                      <li role="separator" class="divider"></li>
+                      <li><a href="#" ng-click="vm.deactivatePlatform(platformName)"><span class="glyphicon glyphicon-minus-sign"></span> Deactivate</a></li>
+                      <li><a href="#" ng-click="vm.removePlatform(platformName)"><span class="glyphicon glyphicon-trash"></span> Remove</a></li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+-->
+      <div>
+        <h2>Plugins</h2>
+        <button type="button" class="btn" ui-sref="plugins">
+            <span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span>
+            <span>Add a Plugin</span>
+          </button>
+
+        <div class="alert alert-warning" role="alert" ng-show='vm.outdated | hasHomebridgePluginName'>
+          <span class="glyphicon glyphicon-warning-sign"></span>
+          <span class="sr-only">Warn: </span> Upgrades Available
+          </span>
+
+          <button href="#" type="button" class="btn btn-default btn-primary">
+              <span class="glyphicon glyphicon-refresh"></span> Upgrade All
+            </button>
+        </div>
+
+        <div class="plugins row">
+          <div ng-repeat="(pluginName, plugin) in vm.installed" class="col-lg-4">
+            <div class="panel panel-default" ng-class="
+                {
+                  'panel-info': plugin.loading,
+                  'panel-warning': !plugin.loading && plugin.version !== plugin.latest && plugin.latest, 
+                  'panel-success': !plugin.loading && (plugin.version === plugin.latest || plugin.latest === undefined)
+                }">
+              <div class="panel-heading">
+                <div class="btn-group pull-right" uib-dropdown>
+                  <button type="button" class="btn btn-primary btn-xs" ui-sref="plugin({name: pluginName})">
+                      <span class="glyphicon glyphicon-cog" aria-hidden="true"></span> Configure
+                    </button>
+                  <button type="button" class="btn btn-primary dropdown-toggle btn-xs" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+                    uib-dropdown-toggle>
+                      <span class="caret"></span>
+                      <span class="sr-only">Toggle Dropdown</span>
+                    </button>
+                  <ul class="dropdown-menu" uib-dropdown-menu role="menu">
+                    <!--<li>
+                        <a ui-sref="plugin({name: pluginName})">
+                          <span class="glyphicon glyphicon-cog" aria-hidden="true"></span> Configure
+                        </a>
+                      </li>-->
+                    <li><a href="#"><span class="glyphicon glyphicon-flash"></span> Error Logs</a></li>
+                    <li role="separator" class="divider"></li>
+                    <li><a href="#" ng-click="vm.removePlugin(pluginName)"><span class="glyphicon glyphicon-trash"></span> Remove</a></li>
+                  </ul>
+                </div>
+
+                <h3 class="panel-title">{{pluginName}}</h3>
+
+                <span class="label label-info" ng-show="plugin.loading">
+                    <span class="glyphicon glyphicon-refresh glyphicon-spin"></span>
+                <span class="sr-only">Loading...</span>
+                <span>v{{plugin.version}}</span>
+                </span>
+
+                <span class="label label-warning" ng-show="plugin.upgrading">
+                    <span class="glyphicon glyphicon-refresh glyphicon-spin"></span>
+                <span class="sr-only">Upgrading...</span>
+                <span>v{{plugin.version}}</span>
+                </span>
+
+                <span class="btn-group" uib-dropdown ng-show='!plugin.loading && !plugin.upgrading && plugin.version !== plugin.latest && plugin.latest'
+                  title="v{{plugin.latest}} available">
+                    <button type="button" ng-click="vm.updatePlugin(pluginName)" class="btn btn-default btn-xs btn-warning" >
+                      <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                <span class="sr-only">Upgrade</span>
+                <span>v{{plugin.version}}</span>
+                </button>
+                <button type="button" class="btn btn-default btn-xs btn-warning dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
+                  aria-expanded="false" uib-dropdown-toggle>
+                        <span class="caret"></span>
+                        <span class="sr-only">Toggle Dropdown</span>
+                    </button>
+                <ul class="dropdown-menu" uib-dropdown-menu role="menu">
+                  <li>
+                    <a href="" ng-click="vm.forceUpdatePlugin(pluginName)">
+                      <span class="glyphicon glyphicon-flash"></span> Force Upgrade</a>
+                  </li>
+                </ul>
+                </span>
+
+                <span class="label label-success" ng-show='!plugin.loading && !plugin.upgrading && (plugin.version === plugin.latest || !plugin.latest)'>
+                    <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+                <span class="sr-only">Up to Date</span>
+                <span>v{{plugin.version}}</span>
+                </span>
+              </div>
+
+              <div class="panel-body">
+                <p>{{plugin.description}}</p>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <h2>Events</h2>
+      <ul>
+        <li><span>Frontdoor unlocked @ <span class="datetime">10/31/2016 12:28PM</span></span>
+        </li>
+        <li><span style="color: red">Homebridge crashed...</span> - <span class="datetime">10/31/2016 12:28PM</span></li>
+      </ul>
+    </div>
+
+    <div>
+      <h2>Metal</h2>
+      <div class="plugins row">
+
+        <div class="col-lg-4">
+          <div class="panel panel-default" ng-class="
+                {
+                  'panel-info': vm.homebridge.loading,
+                  'panel-warning': !vm.homebridge.loading && vm.homebridge.version !== vm.homebridge.latest && vm.homebridge.latest, 
+                  'panel-success': !vm.homebridge.loading && (vm.homebridge.version === vm.homebridge.latest || vm.homebridge.latest === undefined)
+                }">
+            <div class="panel-heading">
+              <div class="btn-group pull-right" uib-dropdown>
+                <button type="button" class="btn btn-primary btn-xs" ui-sref="plugin({name: 'homebridge'})">
+                <span class="glyphicon glyphicon-cog" aria-hidden="true"></span> Configure
+              </button>
+                <button type="button" class="btn btn-primary dropdown-toggle btn-xs" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+                  uib-dropdown-toggle>
+                <span class="caret"></span>
+                <span class="sr-only">Toggle Dropdown</span>
+              </button>
+                <ul class="dropdown-menu" uib-dropdown-menu role="menu">
+                  <li><a href="#"><span class="glyphicon glyphicon-flash"></span> Console Output</a></li>
+                  <li><a href="#"><span class="glyphicon glyphicon-flash"></span> Error Logs</a></li>
+                  <li role="separator" class="divider"></li>
+                  <li ng-click="vm.startHomebridge()"><a href="#"><span class="glyphicon glyphicon-refresh"></span> Start</a></li>
+                  <li ng-click="vm.stopHomebridge()"><a href="#"><span class="glyphicon glyphicon-refresh"></span> Stop</a></li>
+                </ul>
+              </div>
+
+              <h3 class="panel-title">
+                HomeBridge
+                <span class="glyphicon glyphicon-ok"></span>
+                <span class="sr-only">Running</span>
+              </h3>
+
+              <span class="label label-info" ng-show="vm.homebridge.loading">
+                <span class="glyphicon glyphicon-refresh glyphicon-spin"></span>
+              <span class="sr-only">Loading...</span>
+              <span>v{{vm.homebridge.version}}</span>
+              </span>
+
+              <span class="label label-warning" ng-show="vm.homebridge.upgrading">
+                <span class="glyphicon glyphicon-refresh glyphicon-spin"></span>
+              <span class="sr-only">Upgrading...</span>
+              <span>v{{vm.homebridge.version}}</span>
+              </span>
+
+              <span class="btn-group" uib-dropdown ng-show='!vm.homebridge.loading && !vm.homebridge.upgrading && vm.homebridge.version !== vm.homebridge.latest && vm.homebridge.latest'
+                title="v{{vm.homebridge.latest}} available">
+                <button type="button" ng-click="vm.forceUpdatePlugin('homebridge')" class="btn btn-default btn-xs btn-warning" >
+                  <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+              <span class="sr-only">Upgrade</span>
+              <span>v{{vm.homebridge.version}} (v{{vm.homebridge.latest}} available)</span>
+              </button>
+              </span>
+
+              <span class="label label-success" ng-show='!vm.homebridge.loading && !vm.homebridge.upgrading && (vm.homebridge.version === vm.homebridge.latest || !vm.homebridge.latest)'>
+                <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+              <span class="sr-only">Up to Date</span>
+              <span>v{{vm.homebridge.version}}</span>
+              </span>
+            </div>
+            <div class="panel-body">
+              HomeBridge...
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-4">
+          <div class="panel panel-default" ng-class="
+                {
+                  'panel-info': vm.homebridgeui.loading,
+                  'panel-warning': !vm.homebridgeui.loading && vm.homebridgeui.version !== vm.homebridgeui.latest && vm.homebridgeui.latest, 
+                  'panel-success': !vm.homebridgeui.loading && (vm.homebridgeui.version === vm.homebridgeui.latest || vm.homebridgeui.latest === undefined)
+                }">
+            <div class="panel-heading">
+              <div class="btn-group pull-right" uib-dropdown>
+                <button type="button" class="btn btn-primary btn-xs" ui-sref="plugin({name: 'homebridgeui'})">
+                <span class="glyphicon glyphicon-cog" aria-hidden="true"></span> Configure
+              </button>
+                <button type="button" class="btn btn-primary dropdown-toggle btn-xs" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+                  uib-dropdown-toggle>
+                <span class="caret"></span>
+                <span class="sr-only">Toggle Dropdown</span>
+              </button>
+                <ul class="dropdown-menu" uib-dropdown-menu role="menu">
+                  <li><a href="#"><span class="glyphicon glyphicon-flash"></span> Console Output</a></li>
+                  <li><a href="#"><span class="glyphicon glyphicon-flash"></span> Error Logs</a></li>
+                  <li role="separator" class="divider"></li>
+                  <li><a href="#"><span class="glyphicon glyphicon-refresh"></span> Restart</a></li>
+                </ul>
+              </div>
+
+              <h3 class="panel-title">
+                HomeBridge UI
+                <span class="glyphicon glyphicon-ok"></span>
+                <span class="sr-only">Running</span>
+              </h3>
+
+              <span class="label label-info" ng-show="vm.homebridgeui && vm.homebridgeui.loading">
+                <span class="glyphicon glyphicon-refresh glyphicon-spin"></span>
+              <span class="sr-only">Loading...</span>
+              <span>v{{vm.homebridgeui.version}}</span>
+              </span>
+
+              <span class="label label-warning" ng-show="vm.homebridgeui && vm.homebridgeui.upgrading">
+                <span class="glyphicon glyphicon-refresh glyphicon-spin"></span>
+              <span class="sr-only">Upgrading...</span>
+              <span>v{{vm.homebridgeui.version}}</span>
+              </span>
+
+              <span class="btn-group" uib-dropdown ng-show='vm.homebridgeui && !vm.homebridgeui.loading && !vm.homebridgeui.upgrading && vm.homebridgeui.version !== vm.homebridgeui.latest && vm.homebridgeui.latest'
+                title="v{{vm.homebridgeui.latest}} available">
+                <button type="button" ng-click="vm.forceUpdatePlugin('homebridgeui')" class="btn btn-default btn-xs btn-warning" >
+                  <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+              <span class="sr-only">Upgrade</span>
+              <span>v{{vm.homebridgeui.version}} (v{{vm.homebridgeui.latest}} available)</span>
+              </button>
+              </span>
+
+              <span class="label label-success" ng-show='vm.homebridgeui && !vm.homebridgeui.loading && !vm.homebridgeui.upgrading && (vm.homebridgeui.version === vm.homebridgeui.latest || !vm.homebridgeui.latest)'>
+                <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+              <span class="sr-only">Up to Date</span>
+              <span>v{{vm.homebridgeui.version}}</span>
+              </span>
+            </div>
+            <div class="panel-body">
+              HomeBridge UI...
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div>
+      <h2>Logs</h2>
+      <div class="logheader">
+        <div class="date">Date</div>
+        <div class="plugin">Plugin</div>
+        <div class="message">Message</div>
+      </div>
+      <div class="logrowcontainer" scroll-glue>
+        <div class="logrow {{log.level}}" ng-repeat="log in vm.logs">
+          <div class="date">{{log.date | amDateFormat:'MMM D YYYY h:mma'}}</div>
+          <div class="plugin">{{log.prefix}}</div>
+          <div class="message">{{log.message}}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>

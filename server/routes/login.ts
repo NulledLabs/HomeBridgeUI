@@ -11,22 +11,21 @@ const loginRouter: Router = Router();
 //     "a28748336aa0feb7ac3a12200d13641c8f8e26398cfdaf268dd68746982bcf59415670655edf4e9ac30f6310bd2248cb9bc185db8059fe979294dd3611fdf28c2b731",
 //     salt: "OxDZYpi9BBJUZTTaC/yuuF3Y634YZ90KjpNa+Km4qGgZXGI6vhSWW0T91rharcQWIjG2uPZEPXiKGnSAQ73s352aom56AIYpYCfk7uNsd+7AzaQ6dxTnd9AzCCdIc/J" +
 //     "62JohpHPJ5eGHUJJy3PAgHYcfVzvBHnIQlTJCQdQAonQ=",
-//     username: "john"
+//     username: "john" 
 // };
-const user = require('../../config.json');
+const user = require('../../config.json').user;
 
 //TODO: Change secret to be in config.json
 
 // login method
 loginRouter.post("/", function (request: Request, response: Response, next: NextFunction) {
-
     pbkdf2(request.body.password, user.salt, 10000, length, digest, (err: Error, hash: Buffer) => {
         if (err) {
             console.log(err);
         }
 
         // check if password is active
-        if (hash.toString("hex") === user.hashedPassword) {
+        if (hash.toString("hex") === user.hashedPassword && request.body.username === user.username) {
 
             const token = sign({"user": user.username, permissions: []}, secret, { expiresIn: "7d" });
             response.json({"jwt": token});

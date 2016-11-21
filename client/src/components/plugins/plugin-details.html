@@ -1,0 +1,164 @@
+<navbar></navbar>
+<div class="container">
+    <div class="plugin-main row">
+        <!--Begin plugin info-->
+
+        <div class="col-sm-12 plugin-searching" ng-if="vm.loading">
+            <span class="glyphicon glyphicon-refresh spinning"></span> Loading...
+        </div>
+        <div class="col-sm-12 row" ng-if="vm.selectedPlugin && vm.installed">
+            <div class="col-lg-12 plugin-details split">
+                <div class="col-lg-6 plugin-details">
+                    <div class="col-sm-12 plugin-details name">{{vm.selectedPlugin.name}}</div>
+                    <div class="plugin-details installed row" ng-if="vm.installed[vm.selectedPlugin.name]">
+                        <div class="plugin-details-label col-xs-3">Installed:</div>
+                        <div class="col-xs-9">
+
+                            <div class="input-group">
+
+                                <input type="text" class="form-control" disabled value="{{vm.installed[vm.selectedPlugin.name].version || 'not installed'}}"
+                                />
+
+                                <span class="input-group-btn">
+                                <button 
+                                    type="button" 
+                                    ng-click="vm.removePlugin(vm.selectedPlugin.name)" 
+                                    class="btn btn-default" 
+                                    ng-class="{'btn-danger': vm.installed[vm.selectedPlugin.name]}" 
+                                    ng-disabled="vm.uninstalling">
+                                    <span ng-if="!vm.uninstalling">Uninstall</span>
+                                <span ng-if="vm.uninstalling" class="glyphicon glyphicon-refresh glyphicon-spin" aria-hidden="true"></span>
+                                </button>
+                                </span>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="plugin-details latest row split">
+                        <div class="plugin-details-label col-xs-3">Version:</div>
+                        <div class="col-xs-9">
+                            <!--<div class="btn-group" uib-dropdown dropdown-append-to-body>
+                            <button type="button" class="btn btn-xs btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+                                uib-dropdown-toggle>
+                                <span class="pull-left">{{vm.selectedPlugin.selectedVersion.version}}</span>
+                        <span class="pull-right caret"></span>
+                        <span class="sr-only">Toggle Dropdown</span>
+                        </button>
+                            <ul class="dropdown-menu" uib-dropdown-menu role="menu">
+                                <li ng-repeat="version in vm.selectedPlugin.versions | toArray | orderBy: '-'">
+                                    <a ng-click="vm.selectedPlugin.selectedVersion = version">{{version.$key}}</a>                                
+                                </li>
+                            </ul>
+                        </div>
+                        <select class="form-control">
+                                <option ng-repeat="version in vm.selectedPlugin.versions | toArray | orderBy: '-'" ng-value="version" ng-model="vm.selectedPlugin.selectedVersion">{{version.version}}</option>
+                        </select>-->
+                            <div class="input-group">
+
+                                <ui-select allow-clear ng-model="vm.selectedPlugin.selectedVersion" theme="bootstrap">
+                                    <ui-select-match>
+                                        {{vm.selectedPlugin.selectedVersion.version}}
+                                    </ui-select-match>
+                                    <ui-select-choices repeat="version in vm.selectedPlugin.versions | toArray | orderBy: '-'">
+                                        {{version.version}} -
+                                        <small am-time-ago="vm.selectedPlugin.time[version.version]"></small>
+                                        <small ng-if="vm.installed[vm.selectedPlugin.name].version === version.version" ng-class="{bold: vm.installed[vm.selectedPlugin.name].version === version.version}"> (installed)</small>
+                                    </ui-select-choices>
+                                </ui-select>
+
+                                <span class="input-group-btn">
+                                <button 
+                                    type="button" 
+                                    ng-click="vm.addPlugin(vm.selectedPlugin.selectedVersion._id);" 
+                                    class="btn btn-default" 
+                                    ng-class="{'btn-primary': vm.selectedPlugin.selectedVersion.version !== vm.installed[vm.selectedPlugin.name].version}" 
+                                    ng-disabled="vm.selectedPlugin.selectedVersion.version === vm.installed[vm.selectedPlugin.name].version || vm.installing">
+                                    <span ng-if="!vm.installing">{{vm.selectedPlugin.selectedVersion.version === vm.installed[vm.selectedPlugin.name].version ? 'Installed' : 'Install'}}</span>
+                                <span ng-if="vm.installing" class="glyphicon glyphicon-refresh glyphicon-spin" aria-hidden="true"></span>
+
+                                </button>
+                                </span>
+
+                            </div>
+                        </div>
+                        <!--<div class="col-xs-4">
+                        <button type="button" class="btn btn-primary btn-xs version-button" ng-if="!vm.installed[vm.selectedPlugin.package.name]">
+                            Install
+                        </button>
+                        <button type="button" class="btn btn-primary btn-xs version-button" ng-if="vm.installed[vm.selectedPlugin.package.name]"
+                            ng-hide="vm.installed[vm.selectedPlugin.package.name] && vm.installed[vm.selectedPlugin.package.name].version === vm.selectedPlugin.package.version">
+                            Update
+                        </button>
+                    </div>-->
+                    </div>
+
+                    <div class="plugin-details description row">
+                        <div class="plugin-details-label col-xs-3">Description:</div>
+                        <div class="plugin-details-value col-xs-9">{{vm.selectedPlugin.selectedVersion.description}}</div>
+                    </div>
+                    <div class="plugin-details keywords row">
+                        <div class="plugin-details-label col-xs-3">Keyword(s):</div>
+                        <div class="col-xs-9">
+                            <span ng-repeat="(key, value) in vm.selectedPlugin.selectedVersion.keywords">
+                            {{value}}{{$last ? '' : ', '}}
+                        </span>
+                        </div>
+                    </div>
+                    <div class="plugin-details version row">
+                        <div class="plugin-details-label col-xs-3">Version:</div>
+                        <div class="col-xs-9">{{vm.selectedPlugin.selectedVersion.version}}</div>
+                    </div>
+                    <div class="plugin-details datepublished row">
+                        <div class="plugin-details-label col-xs-3">Publish Date:</div>
+                        <div class="col-xs-9">{{vm.selectedPlugin.time[vm.selectedPlugin.selectedVersion.version] | amDateFormat:'dddd, MMMM D, YYYY'}}</div>
+                    </div>
+                    <div class="plugin-details publisher row">
+                        <div class="plugin-details-label col-xs-3">Publisher:</div>
+                        <div class="col-xs-9"><a href="https://www.npmjs.com/~{{vm.selectedPlugin.selectedVersion._npmUser.name}}" target="_blank">{{vm.selectedPlugin.selectedVersion._npmUser.name}}</a></div>
+                    </div>
+                    <div class="plugin-details maintainers row">
+                        <div class="plugin-details-label col-xs-3">Maintainer(s):</div>
+                        <div class="col-xs-9">
+                            <div ng-repeat="(key, value) in vm.selectedPlugin.selectedVersion.maintainers">
+                                <a href="https://www.npmjs.com/~{{value.name}}" target="_blank">{{value.name}}</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="plugin-details link row">
+                        <div class="plugin-details-label col-xs-3">Home Page:</div>
+                        <div class="col-xs-9"><a href="{{vm.selectedPlugin.selectedVersion.homepage}}" target="_blank">{{vm.selectedPlugin.selectedVersion.homepage}}</a></div>
+                    </div>
+                    <div class="plugin-details link row">
+                        <div class="plugin-details-label col-xs-3">Bugs:</div>
+                        <div class="col-xs-9"><a href="{{vm.selectedPlugin.selectedVersion.bugs.url}}" target="_blank">{{vm.selectedPlugin.selectedVersion.bugs.url}}</a></div>
+                    </div>
+                </div>
+                <div class="col-lg-6 plugin-form form-horizontal">
+                    <div class="col-sm-12 plugin-details name">Configuration</div>
+
+                    <form name="form"
+                        sf-schema="vm.schema"
+                        sf-form="vm.form"
+                        sf-model="vm.model"
+                        sf-options='vm.options'
+                        ng-submit="vm.onSubmit(form)"
+                        readonly
+                        ></form>
+                </div>
+            </div>
+
+            <div class="col-lg-12 plugin-details readme row" marked="vm.selectedPlugin.readme">
+            </div>
+        </div>
+    </div>
+    <!--End plugin info-->
+
+</div>
+<script type="text/ng-template" id="customTemplate.html">
+  <a>
+      <img ng-src="http://upload.wikimedia.org/wikipedia/commons/thumb/{{match.model.flag}}" width="16">
+      <span ng-bind-html="match.label | uibTypeaheadHighlight:query"></span>
+  </a>
+</script>
+
+<!--uib-typeahead="data for data in vm.getSuggestions($viewValue, 10)"-->
