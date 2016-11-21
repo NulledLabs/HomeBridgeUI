@@ -352,7 +352,7 @@
       </div>
       <div class="logrowcontainer" scroll-glue>
         <div class="logrow {{log.level}}" ng-repeat="log in vm.logs">
-          <div class="date">{{log.date | amDateFormat:'MMM Do YYYY, h:mm:ssa'}}</div>
+          <div class="date">{{log.date | amDateFormat:'MMM D YYYY h:mma'}}</div>
           <div class="plugin">{{log.prefix}}</div>
           <div class="message">{{log.message}}</div>
         </div>
