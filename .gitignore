@@ -1,8 +1,8 @@
-node_modules
+.DS_Store
 .idea
-typings
-server/**/*.js
-server/**/*.js.map
-client/**/*.js.map
-/npm-debug.log
-server/dist
+npm-debug.log
+
+public/assets
+node_modules
+stats.json
+dist
