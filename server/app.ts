@@ -8,7 +8,7 @@ import { protectedRouter } from "./routes/protected";
 import { metalRouter } from "./routes/metal";
 import { homebridgeRouter } from "./routes/homebridge";
 import { homebridgePluginRouter } from "./routes/homebridge-plugin";
-import { npmRouter } from "./routes/npm";
+//import { npmRouter } from "./routes/npm";
 
 const app: express.Application = express();
 const server = require('http').Server(app);
@@ -36,7 +36,7 @@ app.use("/client", express.static(join(__dirname, '../client')));
 app.use("/metal", metalRouter);
 app.use("/homebridge", homebridgeRouter);
 app.use("/homebridgeplugin", homebridgePluginRouter);
-app.use("/npm", npmRouter);
+//app.use("/npm", npmRouter);
 
 // error handlers
 // development error handler
